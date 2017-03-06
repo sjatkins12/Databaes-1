@@ -1,10 +1,13 @@
 from django.shortcuts import render
 
+from .models import Box
+
 
 # Create your views here.
 
 def index(request):
-    return render(request, 'base_generic.html')
+    boxes = Box.objects.all()
+    return render(request, 'base_generic.html', context={'boxes': boxes})
 
 
 def box(request, box_id):

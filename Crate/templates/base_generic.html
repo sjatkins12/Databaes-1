@@ -9,6 +9,14 @@
 </body>
 {% block content %}
     <h1>List of Crates offered by <em>Databaes</em></h1>
-    <p>No Crates currently being sold, sorry!</p>
+    {% if boxes %}
+        <ul>
+            {% for box in boxes %}
+                <li>This is box #{{ box.id }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No crates currently being sold, sorry!</p>
+    {% endif %}
 {% endblock %}
 </html>
