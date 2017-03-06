@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Crates</title>
-</head>
-<body>
-<p>There are currently no crates on sale right now.</p>
-</body>
-</html>
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <p>No crates currently being sold.</p>
+    <p>You are currently looking at crate #{{ box_id }}</p>
+{% endblock %}
