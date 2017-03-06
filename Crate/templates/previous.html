@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% block navbar %}
+    <ul class="nav navbar-nav">
+        <li><a href="{% url 'index' %}">Available Crates</a></li>
+        <li class="active"><a href={% url 'previous' %}>Previous Crates</a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <h1 class="title-center">List of previous Crates offered by <em>Databaes</em></h1>
+    <br>
+    {% if boxes %}
+
+    {% else %}
+        <p>No crates currently were previously, sorry!</p>
+    {% endif %}
+{% endblock %}

@@ -12,3 +12,7 @@ def index(request):
 
 def box(request, box_id):
     return render(request, 'index.html', {'box_id': box_id})
+
+
+def previous(request):
+    return render(request, 'previous.html', {})
