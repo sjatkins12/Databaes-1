@@ -1,6 +1,10 @@
 {% extends "base_generic.html" %}
 
-{% block navbar %}
+<!-- Used to be able to load the static file -->
+<!-- Currently only allowed for the top template class -->
+{% load staticfiles %}
+
+{% block nav-bar %}
     <ul class="nav navbar-nav">
         <li><a href="{% url 'index' %}">Available Crates</a></li>
         <li class="active"><a href={% url 'previous' %}>Previous Crates</a></li>
@@ -13,6 +17,9 @@
     {% if boxes %}
 
     {% else %}
-        <p>No crates currently were previously, sorry!</p>
+        <div class="div-sorry">
+            <p>No crates currently were previously, sorry!</p>
+            <img src="{% static 'media/sorry.jpg' %}"/>
+        </div>
     {% endif %}
 {% endblock %}

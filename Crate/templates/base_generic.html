@@ -20,7 +20,7 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="#">CrateUrself</a>
         </div>
-        {% block navbar %}
+        {% block nav-bar %}
             <ul class="nav navbar-nav">
                 <li class="active"><a href="{% url 'index' %}">Available Crates</a></li>
                 <li><a href={% url 'previous' %}>Previous Crates</a></li>
@@ -45,6 +45,9 @@
             {% endfor %}
         </ul>
     {% else %}
-        <p>No crates currently being sold, sorry!</p>
+        <div class="div-sorry">
+            <p>No crates currently being sold, sorry!</p>
+            <img src="{% static 'media/sorry.jpg' %}"/>
+        </div>
     {% endif %}
 {% endblock %}
