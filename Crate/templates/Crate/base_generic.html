@@ -20,8 +20,8 @@
         </div>
         {% block nav-bar %}
             <ul class="nav navbar-nav">
-                <li class="active"><a href={% url 'crate_home' %}>Available Crates</a></li>
-                <li><a href={% url 'previous' %}>Previous Crates</a></li>
+                <li class="active"><a href="{% url 'crate_home' %}">Available Crates</a></li>
+                <li><a href="{% url 'previous' %}">Previous Crates</a></li>
             </ul>
         {% endblock %}
         <form class="navbar-form navbar-left">
