@@ -5,7 +5,7 @@ from .models import Box
 
 # Create your views here.
 
-def index(request):
+def crate_home(request):
     boxes = Box.objects.all()
     return render(request, 'Crate/base_generic.html', context={'boxes': boxes})
 
