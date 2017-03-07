@@ -17,5 +17,5 @@ class Item(models.Model):
     item_name = models.CharField(max_length=40)
     item_description = models.CharField(max_length=500)
     item_quantity = models.IntegerField(default=0)
-    price_per_item = models.DecimalField(max_length=6, max_digits=2)
+    price_per_item = models.DecimalField(max_digits=6, decimal_places=2)
     # TODO: Need Supplier ID and Interest ID
