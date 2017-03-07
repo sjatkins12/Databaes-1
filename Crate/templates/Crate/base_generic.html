@@ -7,7 +7,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'Crate/css/styles.css' %}">
 
     {% block title %}<title>Crates</title>{% endblock %}
 </head>
@@ -45,7 +45,7 @@
     {% else %}
         <div class="div-sorry">
             <p>No crates currently being sold, sorry!</p>
-            <img src="{% static 'media/sorry.jpg' %}"/>
+            <img src="{% static 'Crate/media/sorry.jpg' %}"/>
         </div>
     {% endif %}
 {% endblock %}

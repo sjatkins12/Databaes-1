@@ -7,11 +7,11 @@ from .models import Box
 
 def index(request):
     boxes = Box.objects.all()
-    return render(request, 'item/base_generic.html', context={'boxes': boxes})
+    return render(request, 'Crate/base_generic.html', context={'boxes': boxes})
 
 
 def box(request, box_id):
-    return render(request, 'item/index.html', {'box_id': box_id})
+    return render(request, 'Crate/index.html', {'box_id': box_id})
 
 
 def previous(request):
