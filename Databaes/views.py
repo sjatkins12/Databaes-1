@@ -11,3 +11,6 @@ def aboutpage(request):
 
 def contactpage(request):
     return render(request, 'contactpage.html', {})
+	
+def index(request):
+    return render(request, 'index.html', {})
