@@ -19,9 +19,7 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'^about/', views.aboutpage, name='aboutpage'),
-    url(r'^contact/', views.contactpage, name='contactpage'),
+    url(r'^$', views.homepage, name='homepage'),
     url(r'^admin/', admin.site.urls),
     url(r'^crate/', include('Crate.urls')),
     url(r'^item/', include('item.urls')),
