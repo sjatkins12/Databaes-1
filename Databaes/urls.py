@@ -23,4 +23,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^crate/', include('Crate.urls')),
     url(r'^item/', include('item.urls')),
+    url(r'^user/', include('user.urls')),
+    url(r'^category/', include('hierarchy.urls')),
 ]
