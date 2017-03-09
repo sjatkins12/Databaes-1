@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Categories</title>
+</head>
+<body>
+{% if categories %}
+    {% for category in categories %}
+        <p>Category: {{ category.category_name }}</p>
+    {% endfor %}
+{% else %}
+    <p>Categories Available: None</p>
+{% endif %}
+</body>
+</html>
