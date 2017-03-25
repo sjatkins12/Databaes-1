@@ -1,5 +1,7 @@
 from django.db import models
 
+from Crate.models import Box
+from hierarchy.models import InterestGroup
 
 # Create your models here.
 class User(models.Model):
@@ -8,3 +10,27 @@ class User(models.Model):
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     email = models.EmailField(max_length=40, unique=True)
+    subscribes_to = models.ManyToManyField(InterestGroup)
+    receives = models.ManyToManyField(Box)
+
+
+# Weak Entities models based on: https://stackoverflow.com/questions/22577060/weak-entities-in-django
+# Was having the issue of old creating a hidden id primary key --maybe this solves it
+class ShippingAddress(models.Model):
+    username = models.ForeignKey(User, on_delete=models.CASCADE)
+    address = models.CharField(max_length=100)
+
+    class Meta:
+        unique_together = ('username', 'address')
+
+
+class CreditCard(models.Model):
+    username = models.ForeignKey(User, on_delete=models.CASCADE)
+    cc_number = models.CharField(max_length=20)
+    type = models.CharField(max_length=20)
+    csv = models.CharField(max_length=4)
+    expiration_date = models.CharField(max_length=6)
+    billing_address = models.CharField(max_length=100)
+
+    class Meta:
+        unique_together = ('username', 'cc_number')

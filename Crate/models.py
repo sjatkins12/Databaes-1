@@ -1,5 +1,8 @@
 from django.db import models
 
+from hierarchy.models import InterestGroup
+from item.models import Item
+
 
 # Create your models here.
 
@@ -15,4 +18,6 @@ class Box(models.Model):
     3. Many to Many with Items
     4. Many to One with Interest Groups
     """
-    pass
+    box_id = models.AutoField(primary_key=True)
+    type = models.ForeignKey(InterestGroup, models.CASCADE)
+    contains = models.ManyToManyField(Item, models.CASCADE)
