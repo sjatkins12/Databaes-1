@@ -1,10 +1,11 @@
 from django.db import models
 
-from hierarchy.models import InterestGroup
-from item.models import Item
-
 
 # Create your models here.
+
+class SellingCycle(models.Model):
+    cycle_date = models.DateField()
+
 
 class Box(models.Model):
     """
@@ -18,6 +19,6 @@ class Box(models.Model):
     3. Many to Many with Items
     4. Many to One with Interest Groups
     """
-    box_id = models.AutoField(primary_key=True)
-    type = models.ForeignKey(InterestGroup, models.CASCADE)
-    contains = models.ManyToManyField(Item, models.CASCADE)
+    box_id = models.IntegerField(primary_key=True)
+    type = models.ForeignKey('hierarchy.InterestGroup', models.CASCADE)
+    sold_during = models.ForeignKey(SellingCycle, models.CASCADE)

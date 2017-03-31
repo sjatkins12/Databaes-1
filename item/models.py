@@ -18,4 +18,5 @@ class Item(models.Model):
     item_description = models.CharField(max_length=500)
     item_quantity = models.IntegerField(default=0)
     price_per_item = models.DecimalField(max_digits=6, decimal_places=2)
-    # TODO: Need Supplier ID and Interest ID
+    sold_in = models.ManyToManyField('Crate.Box')
+    sold_by = models.ManyToManyField('Crate.SellingCycle')
