@@ -18,5 +18,6 @@ class Item(models.Model):
     item_description = models.CharField(max_length=500)
     item_quantity = models.IntegerField(default=0)
     price_per_item = models.DecimalField(max_digits=6, decimal_places=2)
-    sold_in = models.ManyToManyField('Crate.Box')
-    sold_by = models.ManyToManyField('Crate.SellingCycle')
+    contained_in = models.ManyToManyField('Crate.Box')
+    sold_in = models.ManyToManyField('Crate.SellingCycle')
+    sold_by = models.ManyToManyField('inventory.Supplier', through='inventory.SellingOrder')

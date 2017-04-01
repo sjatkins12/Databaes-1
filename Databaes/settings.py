@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'item',
     'user',
     'hierarchy',
+    'inventory',
 ]
 
 MIDDLEWARE = [

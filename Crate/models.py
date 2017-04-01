@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 
 class SellingCycle(models.Model):
-    cycle_date = models.DateField()
+    cycle_date = models.DateField(primary_key=True)
 
 
 class Box(models.Model):
