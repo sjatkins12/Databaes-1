@@ -22,3 +22,23 @@ class Box(models.Model):
     box_id = models.IntegerField(primary_key=True)
     type = models.ForeignKey('hierarchy.InterestGroup', models.CASCADE)
     sold_during = models.ForeignKey(SellingCycle, models.CASCADE)
+
+
+class Item(models.Model):
+    """
+    Fields-
+    1. id = models.AutoField(primary_key=True) is created by default
+    2. Two Foreign Keys
+    Relationships-
+    Many to Many with Interest Group
+    Many to Many with Box
+    Ternary Relationship with Supplier and Orders
+    Many to Many with Selling Cycle
+    """
+    item_name = models.CharField(max_length=40)
+    item_description = models.CharField(max_length=500)
+    item_quantity = models.IntegerField(default=0)
+    price_per_item = models.DecimalField(max_digits=6, decimal_places=2)
+    contained_in = models.ManyToManyField(Box)
+    sold_in = models.ManyToManyField(SellingCycle)
+    sold_by = models.ManyToManyField('inventory.Supplier', through='inventory.SellingOrder')

@@ -18,4 +18,4 @@ class Order(models.Model):
 class SellingOrder(models.Model):
     supplier = models.ForeignKey(Supplier)
     order = models.ForeignKey(Order)
-    item = models.ForeignKey('item.Item')
+    item = models.ForeignKey('Crate.Item')
