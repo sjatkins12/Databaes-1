@@ -16,7 +16,7 @@ class UserFormView(View):
         profile_form = self.form2_class(None)
         return render(request, self.template_name, {'user_form': user_form, 'profile_form': profile_form})
     
-    @csrf_exempt
+     
     # Process form data
     def post(self, request):
         user_form = self.form1_class(request.POST)
@@ -50,8 +50,30 @@ class UserFormView(View):
                     
                     
         return render(request, self.template_name, {'user_form': user_form, 'profile_form': profile_form})
-            
-            
+        
+class LoginView(View):
+    template_name = 'login/login_form.html'
+    def post(self, request):
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return redirect('homepage')
+            else:
+                return HttpResponse("BANNED")
+        else:
+            return HttpResponse("Invalid login details supplied.")
+
+    def get(self, request):
+        return render(request, self.template_name)
+
+def logoutView(self, request):
+    logout(request)
+    return redirect('homepage')
+        
             
             
             

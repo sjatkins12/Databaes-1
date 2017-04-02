@@ -26,4 +26,6 @@ urlpatterns = [
     url(r'^user/', include('user.urls')),
     url(r'^category/', include('hierarchy.urls')),
     url(r'^register/', account_views.UserFormView.as_view(), name='register'),
+    url(r'^login/', account_views.LoginView.as_view(), name='login'),
+    url(r'^logout/', account_views.logoutView, name='logout'),
 ]
