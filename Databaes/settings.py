@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'hierarchy',
     'inventory',
     'account',
+    'bootstrap3',
+    'bootstrap_themes',
 ]
 
 MIDDLEWARE = [

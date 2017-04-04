@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CrateUrself</title>
+    {# Load the tag library #}
+    {% load bootstrap3 %}
+      
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+      
+    {# Display django.contrib.messages as Bootstrap alerts #}
+    {% bootstrap_messages %}
+
+      
+    {% load bootstrap_themes %}
+    {% bootstrap_styles theme='darkly' type='min.css' %}
+    {% bootstrap_script use_min=True %}
+  </head>
+  <body>
+   <div class="container">
+    {% block content %}
+    {% endblock %}
+   </div>
+  </body>
+</html>

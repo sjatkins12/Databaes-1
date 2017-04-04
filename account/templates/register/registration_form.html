@@ -1,31 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>Register</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
+{% extends "base.html" %}
+{% load bootstrap3 %}
 
-<div class="container">
-	  <h1>Register</h1>
-        <form id="user_form" method="post" action=""
-                enctype="multipart/form-data">
 
-            {% csrf_token %}
 
-            <!-- Display each form. The as_p method wraps each element in a paragraph
-                 (<p>) element. This ensures each element appears on a new line,
-                 making everything look neater. -->
-            {{ user_form.as_p }}
-            {{ profile_form.as_p }}
 
-            <!-- Provide a button to click to submit the form. -->
-            <input type="submit" name="submit" value="Register" />
-        </form>
-    </div>
-	
-</html>
+{% block content %}
+<h1>{% block title %}Register{% endblock %}</h1>
+{# Display a form #}
+
+    <form role="form" action="" method="post" class="form-horizontal">
+        {% csrf_token %}
+        {% bootstrap_form user_form %}
+        {% bootstrap_form profile_form %}
+            {% buttons %}
+            <button type="submit" class="btn btn-primary">
+            {% bootstrap_icon "star" %} Submit
+            </button>
+            {% endbuttons %}
+    </form>
+
+
+{% endblock %}
