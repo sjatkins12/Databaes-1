@@ -15,20 +15,20 @@ class User(models.Model):
 # Weak Entities models based on: https://stackoverflow.com/questions/22577060/weak-entities-in-django
 # Was having the issue of old creating a hidden id primary key --maybe this solves it
 class ShippingAddress(models.Model):
-    username = models.ForeignKey(User, on_delete=models.CASCADE)
-    address = models.CharField(max_length=100)
+    address = models.CharField(primary_key=True, max_length=100)
+    username = models.ForeignKey(User)
 
     class Meta:
-        unique_together = ('username', 'address')
+        unique_together = ('address', 'username',)
 
 
 class CreditCard(models.Model):
-    username = models.ForeignKey(User, on_delete=models.CASCADE)
-    cc_number = models.CharField(max_length=20)
+    cc_number = models.CharField(primary_key=True, max_length=20)
+    username = models.ForeignKey(User)
     type = models.CharField(max_length=20)
     csv = models.CharField(max_length=4)
     expiration_date = models.CharField(max_length=6)
     billing_address = models.CharField(max_length=100)
 
     class Meta:
-        unique_together = ('username', 'cc_number')
+        unique_together = ('cc_number', 'username',)
