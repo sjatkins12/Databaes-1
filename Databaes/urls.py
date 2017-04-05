@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
-from account import views as account_views
+from account import views as custom_registration_views
 from . import views
 
 urlpatterns = [
@@ -25,7 +25,8 @@ urlpatterns = [
     url(r'^crate/', include('Crate.urls')),
     url(r'^user/', include('user.urls')),
     url(r'^category/', include('hierarchy.urls')),
-    url(r'^register/', account_views.UserFormView.as_view(), name='register'),
-    url(r'^login/', account_views.LoginView.as_view(), name='login'),
-    url(r'^logout/', account_views.logoutView, name='logout'),
+    url(r'^login/', custom_registration_views.LoginView.as_view(), name='login'),
+    url(r'^logout/', custom_registration_views.logoutView, name='logout'),
+    url(r'^accounts/', include('registration.backends.default.urls')),
+    url(r'^register/', custom_registration_views.UserRegistrationFormView.as_view(), name='register'),
 ]

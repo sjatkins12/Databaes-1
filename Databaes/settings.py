@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'Crate',
     'user',
     'hierarchy',
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'account',
     'bootstrap3',
     'bootstrap_themes',
+    'registration',
 ]
 
 MIDDLEWARE = [
@@ -130,3 +132,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/static/media/'
+
+# Django-registration-redux Variables
+SITE_ID = 1
+ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window; you may, of course, use a different value.
+REGISTRATION_AUTO_LOGIN = True # Automatically log the user in.
+LOGIN_URL = 'homepage'  # The page users are directed to if they are not logged in
+                        # and are trying to access pages requiring authentication
+LOGIN_REDIRECT_URL = 'homepage'  # The page you want users to arrive at after they successful log in
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

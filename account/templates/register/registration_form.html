@@ -4,20 +4,30 @@
 
 
 
+
 {% block content %}
-<h1>{% block title %}Register{% endblock %}</h1>
+{% block title %}
+<div class="container" >
+	<div class="col-md-4 col-md-offset-4">
+		<h1 align="center">Register</h1>
+	</div>
+</div>
+{% endblock %}
+
 {# Display a form #}
-
-    <form role="form" action="" method="post" class="form-horizontal">
-        {% csrf_token %}
-        {% bootstrap_form user_form %}
-        {% bootstrap_form profile_form %}
+<div class="container" >
+  <div class="row" >
+    <div class="col-md-4 col-md-offset-4">
+        <form role="form" action="" method="post" class="form-horizontal" >
+            {% csrf_token %}
+            {% bootstrap_form user_form %}
             {% buttons %}
-            <button type="submit" class="btn btn-primary">
-            {% bootstrap_icon "star" %} Submit
-            </button>
+                <button type="submit" class="btn btn-primary">
+                {% bootstrap_icon "star" %} Submit
+                </button>
             {% endbuttons %}
-    </form>
-
-
+        </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

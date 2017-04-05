@@ -1,17 +1,10 @@
 from django import forms
-
-from django.contrib.auth.models import User
+from registration.forms import RegistrationFormUniqueEmail
+# from django.contrib.auth.models import User
 from account.models import UserProfile
 
 # Form for creating a new user
-class UserForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput())
-
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'first_name', 'last_name', 'password')
-
-class UserProfileForm(forms.ModelForm):
-    class Meta:
-        model = UserProfile
-        fields = ('address', )
+class UserRegistrationForm(RegistrationFormUniqueEmail):
+    first_name = forms.CharField()
+    last_name = forms.CharField()
+    address = forms.CharField()
