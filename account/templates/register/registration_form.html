@@ -21,6 +21,7 @@
         <form role="form" action="" method="post" class="form-horizontal" >
             {% csrf_token %}
             {% bootstrap_form user_form %}
+			{% bootstrap_form profile_form %}
             {% buttons %}
                 <button type="submit" class="btn btn-primary">
                 {% bootstrap_icon "star" %} Submit
