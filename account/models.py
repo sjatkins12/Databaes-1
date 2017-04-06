@@ -14,10 +14,17 @@ class UserProfile(models.Model):
 
 
 class ShippingAddress(models.Model):
+    # id (auto-generated) will act as the primary key
     user_id = models.ForeignKey(UserProfile)
-    address = models.CharField(primary_key=True, max_length=100)
+    address = models.CharField(max_length=100)
 
-    # TODO: This does not create address and user_id as the primary keys
-    # It guarantees that they are unique so no problems should arise.
+    # This will guarantee that the two columns are unique together
     class Meta:
         unique_together = ('user_id', 'address',)
+
+
+class Discussion(models.Model):
+    discussion_id = models.IntegerField(primary_key=True)
+    comment = models.CharField(max_length=500)
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    interest_id = models.ForeignKey('Crate.InterestGroup', on_delete=models.CASCADE)
