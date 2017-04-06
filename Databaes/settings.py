@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'Crate',
     'user',
-    'hierarchy',
     'inventory',
     'account',
     'bootstrap3',
@@ -114,10 +113,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-#Authentication backends
+# Authentication backends
 AUTHENTICATION_BACKENDS = (
-        'django.contrib.auth.backends.ModelBackend',
-    )
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
@@ -140,9 +139,9 @@ MEDIA_URL = '/static/media/'
 
 # Django-registration-redux Variables
 SITE_ID = 1
-ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window; you may, of course, use a different value.
-REGISTRATION_AUTO_LOGIN = True # Automatically log the user in.
+ACCOUNT_ACTIVATION_DAYS = 7  # One-week activation window; you may, of course, use a different value.
+REGISTRATION_AUTO_LOGIN = True  # Automatically log the user in.
 LOGIN_URL = 'homepage'  # The page users are directed to if they are not logged in
-                        # and are trying to access pages requiring authentication
+# and are trying to access pages requiring authentication
 LOGIN_REDIRECT_URL = 'homepage'  # The page you want users to arrive at after they successful log in
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

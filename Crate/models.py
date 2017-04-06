@@ -3,6 +3,23 @@ from django.db import models
 
 # Create your models here.
 
+class Category(models.Model):
+    category_name = models.CharField(max_length=20, primary_key=True)
+
+
+class SubCategory(models.Model):
+    subcategory_name = models.CharField(max_length=30, primary_key=True)
+    category_name = models.ForeignKey(Category)
+
+
+class InterestGroup(models.Model):
+    interest_id = models.IntegerField(primary_key=True)
+    interest_group_name = models.CharField(max_length=30)
+    subscription_cost = models.DecimalField(max_digits=6, decimal_places=2)
+    subcategory_name = models.ForeignKey(SubCategory)
+    have = models.ManyToManyField('Crate.Item')
+
+
 class SellingCycle(models.Model):
     cycle_date = models.DateField(primary_key=True)
 
@@ -20,8 +37,8 @@ class Box(models.Model):
     4. Many to One with Interest Groups
     """
     box_id = models.IntegerField(primary_key=True)
-    type = models.ForeignKey('hierarchy.InterestGroup', models.CASCADE)
-    sold_during = models.ForeignKey(SellingCycle, models.CASCADE)
+    type = models.ForeignKey(InterestGroup)
+    sold_during = models.ForeignKey(SellingCycle)
 
 
 class Item(models.Model):
