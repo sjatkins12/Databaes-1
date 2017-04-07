@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'Crate',
-    'user',
     'inventory',
     'account',
     'bootstrap3',

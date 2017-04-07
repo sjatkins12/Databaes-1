@@ -3,6 +3,61 @@ from django.db import models
 
 # Create your models here.
 
+class Supplier(models.Model):
+    """
+    Fields-
+    1. supplier_id- Supplier identifier
+    2. supplier_name- Supplier name
+    3. point_of_contact- Person to contact (Company representative)
+    4. Foreign Keys:
+    Relationships-
+    1. Ternary Relationship with Supplier, Order, and Item
+    """
+    supplier_name = models.CharField(max_length=40)
+    point_of_contact = models.CharField(max_length=40)
+
+    def __str__(self):
+        return '{} {}'.format(self.id, self.supplier_name)
+
+
+class Order(models.Model):
+    """
+    Fields-
+    1. order_id- Order identifier
+    2. date_ordered- Date when items were ordered
+    3. date_fulfilled- Date when items were received
+    4. order_quantity- Number of items ordered
+    5. Foreign Keys:
+    Relationships-
+    1. Ternary Relationship with Supplier, Order, and Item
+    """
+    order_id = models.IntegerField(primary_key=True)
+    date_ordered = models.DateField()
+    date_fulfilled = models.DateField()
+    order_quantity = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.order_id
+
+
+class SellingOrder(models.Model):
+    """
+    Fields-
+    1. supplier_order_id- Order from supplier Identifier
+    2. Foreign Key:
+    Relationship-
+    1. One to Many with Supplier                            --In This Model
+    2. One to Many with Order                               --In This Model
+    3. One to Many with Item                                --In This Model
+    """
+    supplier = models.ForeignKey(Supplier)
+    order = models.ForeignKey(Order)
+    item_id = models.ForeignKey('Crate.Item', related_name='item_id_sold_by')
+
+    def __str__(self):
+        return '{} {} {}'.format(self.supplier, self.order, self.item_id)
+
+
 class Category(models.Model):
     """
     Fields-
@@ -102,7 +157,7 @@ class Box(models.Model):
     2. 4 Foreign Keys to the Tables
     models.ForeignKey(<Model>, on_delete=models.ON_CASCADE)
     Relationships-
-    1. Many to Many with User                       --In 'User Profile' Model
+    1. Many to Many with User                       --In 'UserProfile' Model
     2. Many to One with Selling Cycle               --In This Model
     3. Many to Many with Items                      --In 'Item' Model
     4. Many to One with Interest Groups             --In This Model
@@ -134,7 +189,7 @@ class Item(models.Model):
     item_quantity = models.IntegerField(default=0)
     price_per_item = models.DecimalField(max_digits=6, decimal_places=2)
     contained_in = models.ManyToManyField(Box)
-    sold_by = models.ManyToManyField('inventory.Supplier', through='inventory.SellingOrder')
+    sold_by = models.ManyToManyField(Supplier, through=SellingOrder)
     sold_in = models.ManyToManyField(SellingCycle)
 
     def __str__(self):

@@ -39,7 +39,7 @@ class ShippingAddress(models.Model):
     1. address- Address of the shipping location
     2. Foreign Keys:
     Relationships-
-    1. One to Many with User Profile                    --In This Model
+    1. One to Many with UserProfile                     --In This Model
     """
     # id (auto-generated) will act as the primary key
     user_id = models.ForeignKey(UserProfile)
@@ -60,7 +60,7 @@ class Discussion(models.Model):
     2. comment- String of user's comment
     3. Foreign Keys:
     Relationships-
-    1. One to Many with User                            --In This Model
+    1. One to Many with UserProfile                     --In This Model
     2. One to Many with Discussion                      --In This Model
     """
     comment = models.CharField(max_length=500)
@@ -69,3 +69,15 @@ class Discussion(models.Model):
 
     def __str__(self):
         return '{} {}'.format(self.id, self.user)
+
+
+class CreditCard(models.Model):
+    cc_number = models.CharField(primary_key=True, max_length=20)
+    username = models.ForeignKey(UserProfile)
+    type = models.CharField(max_length=20)
+    csv = models.CharField(max_length=4)
+    expiration_date = models.CharField(max_length=6)
+    billing_address = models.CharField(max_length=100)
+
+    class Meta:
+        unique_together = ('cc_number', 'username',)
