@@ -90,7 +90,7 @@ DATABASES = {
         'NAME': 'databaes',
         'USER': 'lqiu96',
         'PASSWORD': 'pennstate2018',
-        'HOST': '96.245.110.195',  # Or an IP Address that your DB is hosted on
+        'HOST': '108.16.36.150',  # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }

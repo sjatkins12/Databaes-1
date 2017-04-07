@@ -18,6 +18,12 @@ class UserProfile(models.Model):
     4. One to Many with Credit Card                     --Not completed yet
     5. One to Many with Shipping Address                --In 'ShippingAddress' Model
     """
+    # TODO: Create a 'through' field for subscribes_to (new model) to represent the attributes in the relationship
+    # User <- Many to Many -> Interest_Group has two fields on the relationship
+    # Attributes: 1. start_date, 2. end_date
+    # TODO: Create a 'through' field for receives (new model) to represent the attribute in the relationship
+    # User <- Many to Many-> Box
+    # Attributes 1. Report
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     address = models.CharField(max_length=255, blank=False)
     subscribes_to = models.ManyToManyField('Crate.InterestGroup')
@@ -57,10 +63,9 @@ class Discussion(models.Model):
     1. One to Many with User                            --In This Model
     2. One to Many with Discussion                      --In This Model
     """
-    discussion_id = models.IntegerField(primary_key=True)
     comment = models.CharField(max_length=500)
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     interest_id = models.ForeignKey('Crate.InterestGroup', on_delete=models.CASCADE)
 
     def __str__(self):
-        return '{} {}'.format(self.discussion_id, self.user)
+        return '{} {}'.format(self.id, self.user)

@@ -48,15 +48,13 @@ class InterestGroup(models.Model):
     4. Many to Many with Item                           --In this Model
     5. Many to One with Box                             --In 'Box' Model
     """
-    # TODO: Potentially Change Relationship #5 to Many to One
-    interest_id = models.IntegerField(primary_key=True)
     interest_group_name = models.CharField(max_length=30)
     subscription_cost = models.DecimalField(max_digits=6, decimal_places=2)
     subcategory_name = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
     have = models.ManyToManyField('Crate.Item')
 
     def __str__(self):
-        return '{} {}'.format(self.interest_id, self.interest_group_name)
+        return '{} {}'.format(self.id, self.interest_group_name)
 
 
 class Votes(models.Model):
@@ -109,12 +107,11 @@ class Box(models.Model):
     3. Many to Many with Items                      --In 'Item' Model
     4. Many to One with Interest Groups             --In This Model
     """
-    box_id = models.IntegerField(primary_key=True)
     sold_during = models.ForeignKey(SellingCycle, on_delete=models.CASCADE)
     type = models.ForeignKey(InterestGroup, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.box_id
+        return self.id
 
 
 class Item(models.Model):
