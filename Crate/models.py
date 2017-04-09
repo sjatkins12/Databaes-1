@@ -31,13 +31,12 @@ class Order(models.Model):
     Relationships-
     1. Ternary Relationship with Supplier, Order, and Item
     """
-    order_id = models.IntegerField(primary_key=True)
     date_ordered = models.DateField()
     date_fulfilled = models.DateField()
     order_quantity = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.order_id
+        return self.id
 
 
 class SellingOrder(models.Model):

@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^$', views.homepage, name='homepage'),
     url(r'^admin/', admin.site.urls),
     url(r'^crate/', include('Crate.urls')),
+    url(r'^payment/', include('payment.urls')),
     url(r'^login/', custom_registration_views.LoginView.as_view(), name='login'),
     url(r'^logout/', custom_registration_views.logout_view, name='logout'),
     url(r'^accounts/', include('registration.backends.default.urls')),
