@@ -46,10 +46,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
-                <form id="login_form" method="post" action="">
+                <!-- TODO: Potentially use a form here -->
+                <form id="login_form" role="form" method="post" action="" class="form-horizontal">
+                    {{ form.as_p }}
                     {% csrf_token %}
                     Username: <input type="text" name="username" value="" size="50"/>
-                    <br/>
                     Password: <input type="password" name="password" value="" size="50"/>
                     <button type="submit" class="btn btn-primary">
                         Submit

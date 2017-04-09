@@ -77,6 +77,6 @@ class LoginView(View):
         return render(request, self.template_name)
 
 
-def logoutView(self, request):
+def logout_view(self, request):
     logout(request)
     return redirect('homepage')

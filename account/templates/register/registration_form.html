@@ -19,33 +19,7 @@
                 </button>
                 <a class="navbar-brand page-scroll" href="{% url 'homepage' %}">CrateUrself</a>
             </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="hidden">
-                        <a href="#page-top"></a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#services">Service</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#portfolio">Portfolio</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#explore">Explore</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#team">Team</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#contact">Contact</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
         </div>
-        <!-- /.container-fluid -->
     </nav>
 
     <div class="row" style="background-color:white">
@@ -68,7 +42,7 @@
                     {% csrf_token %}
                     {% bootstrap_form user_form %}
                     {% bootstrap_form profile_form %}
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary" style="width: 100%">
                         Submit
                     </button>
                 </form>
