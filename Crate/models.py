@@ -49,10 +49,13 @@ class SellingOrder(models.Model):
     1. One to Many with Supplier                            --In This Model
     2. One to Many with Order                               --In This Model
     3. One to Many with Item                                --In This Model
+    Note: The Foreign Keys are set to 'Protect' so that if a valid reference
+    exists, it won't change the references to null. We will have a record
+    of which suppliers supplied what items on which days.
     """
-    supplier = models.ForeignKey(Supplier)
-    order = models.ForeignKey(Order)
-    item_id = models.ForeignKey('Crate.Item', related_name='item_id_sold_by')
+    supplier = models.ForeignKey(Supplier, on_delete=models.PROTECT)
+    order = models.ForeignKey(Order, on_delete=models.PROTECT)
+    item_id = models.ForeignKey('Crate.Item', related_name='item_id_sold_by', on_delete=models.PROTECT)
 
     def __str__(self):
         return '{} {} {}'.format(self.supplier, self.order, self.item_id)

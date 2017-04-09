@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'Crate',
     'account',
+    'payment',
     'bootstrap3',
     'bootstrap_themes',
     'registration',
