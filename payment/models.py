@@ -27,4 +27,4 @@ class CreditCard(models.Model):
     username = models.ForeignKey('account.UserProfile')
 
     class Meta:
-        unique_together = ('cc_number', 'username',)
+        unique_together = ('cc_number', 'username')

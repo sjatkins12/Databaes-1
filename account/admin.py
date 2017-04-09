@@ -1,7 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
+
 from account.models import UserProfile
+
 
 # Register your models here.
 
@@ -11,15 +13,17 @@ class UserProfileInline(admin.StackedInline):
     verbose_name_plural = 'UserProfile'
     fk_name = 'user'
 
+
 class CustomUserAdmin(UserAdmin):
-    inlines = (UserProfileInline, )
+    inlines = (UserProfileInline,)
     list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'address')
-    list_select_related = ('userprofile', )
+    list_select_related = ('userprofile',)
 
     def address(self, instance):
         return instance.userprofile.address
+
     address.short_description = 'Address'
-    
+
     def get_inline_instances(self, request, obj=None):
         if not obj:
             return list()
