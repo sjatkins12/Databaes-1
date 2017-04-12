@@ -1,10 +1,32 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.views.generic import View
+
+from .forms import ReportForm, DiscussionForm
 
 
 # Create your views here.
 
-def box_vote(request, box_id):
-    return render(request, 'Crate/box_vote.html', {'box_id': box_id})
+class BoxVoteFormView(View):
+    def get(self, request, *args, **kwargs):
+        form = ReportForm()
+        return render(request, 'Crate/box_vote.html', {'box_id': kwargs['box_id'], 'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = ReportForm(request.POST)
+        if form.is_valid():
+            return HttpResponseRedirect('')
+
+
+class DiscussionFormView(View):
+    def get(self, request, *args, **kwargs):
+        form = DiscussionForm()
+        return render(request, 'Crate/box_discussion.html', {'interest_group': kwargs['interest_group_name'], 'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = DiscussionForm(request.POST)
+        if form.is_valid():
+            return HttpResponseRedirect('')
 
 
 def category_list(request):

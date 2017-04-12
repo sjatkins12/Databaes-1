@@ -3,32 +3,6 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-class Subscription(models.Model):
-    """
-    Fields-
-    1. start_date- Date which subscription starts
-    2. end_data- Date which subscription ends
-    3. Foreign Keys:
-    Relationships-
-    1. Many to One with Interest Group                  --In This Model
-    2. Many to One with UserProfile                     --In This Model
-    Note: Foreign Keys are set to 'Protect' so if a reference exists,
-    the reference won't be changed to null, so start_date and end_date
-    always references to a valid (or non-continuing) interest group
-    """
-    start_date = models.DateField()
-    end_date = models.DateField()
-    interest_group_id = models.ForeignKey('Crate.InterestGroup', on_delete=models.PROTECT)
-    user_id = models.ForeignKey('account.UserProfile', on_delete= models.PROTECT)
-
-    # This guarantees that box_id and user_id are unique (act as primary keys)
-    class Meta:
-        unique_together = ('interest_group_id', 'user_id')
-
-    def __str__(self):
-        return '{} {}'.format(self.interest_group_id, self.user_id)
-
-
 class Reports(models.Model):
     """
     Fields-
@@ -51,6 +25,32 @@ class Reports(models.Model):
 
     def __str__(self):
         return '{} {}'.format(self.box_id, self.user_id)
+
+
+class Subscription(models.Model):
+    """
+    Fields-
+    1. start_date- Date which subscription starts
+    2. end_data- Date which subscription ends
+    3. Foreign Keys:
+    Relationships-
+    1. Many to One with Interest Group                  --In This Model
+    2. Many to One with UserProfile                     --In This Model
+    Note: Foreign Keys are set to 'Protect' so if a reference exists,
+    the reference won't be changed to null, so start_date and end_date
+    always references to a valid (or non-continuing) interest group
+    """
+    start_date = models.DateField()
+    end_date = models.DateField()
+    interest_group_id = models.ForeignKey('Crate.InterestGroup', on_delete=models.PROTECT)
+    user_id = models.ForeignKey('account.UserProfile', on_delete=models.PROTECT)
+
+    # This guarantees that box_id and user_id are unique (act as primary keys)
+    class Meta:
+        unique_together = ('interest_group_id', 'user_id')
+
+    def __str__(self):
+        return '{} {}'.format(self.interest_group_id, self.user_id)
 
 
 class UserProfile(models.Model):
