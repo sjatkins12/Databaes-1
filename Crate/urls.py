@@ -3,9 +3,6 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    # TODO: We may need a /Crate/<crate_id>/report link
-    # TODO: We may need a discussion page: /Crate/..../<interest_group_id>/discussion
-    # TODO: Potentially use /Crate/<crate_id>/payment or have that in the payment app
     # Page that displays the list of categories
     url(r'^$', views.category_list, name='category_list'),
     # Page that displays the list of subcategories pertaining to the category
