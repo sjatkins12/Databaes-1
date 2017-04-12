@@ -25,7 +25,7 @@ SECRET_KEY = 'p@zh%^j=%v^1y%9#y=l2vu9&*l#+550j#w#(=2g7$=r(y%4ul='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [*]
 
 # Application definition
 
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'bootstrap_themes',
     'registration',
+    "pinax.stripe"
 ]
 
 MIDDLEWARE = [
@@ -53,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'pinax.stripe.middleware.ActiveSubscriptionMiddleware',
 ]
 
 ROOT_URLCONF = 'Databaes.urls'
@@ -144,3 +146,20 @@ LOGIN_URL = 'homepage'  # The page users are directed to if they are not logged 
 # and are trying to access pages requiring authentication
 LOGIN_REDIRECT_URL = 'homepage'  # The page you want users to arrive at after they successful log in
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Pinax Stripe Settings and Variables
+PINAX_STRIPE_PUBLIC_KEY = 'pk_test_XCcdTdwGIrUPzSeAJ8ImmFcR'
+PINAX_STRIPE_SECRET_KEY = 'sk_test_GmaJVY0Z32BsxeTeqHh41ij7'
+#decide later
+# PINAX_STRIPE_SUBSCRIPTION_REQUIRED_EXCEPTION_URLS = []
+# PINAX_STRIPE_SUBSCRIPTION_REQUIRED_REDIRECT = Defaults to none
+# PINAX_STRIPE_INVOICE_FROM_EMAIL
+
+# Heroku Setup
+import dj_database_url
+DATABASES['default'] = dj_database_url.config()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+try:
+    from .local_settings import *
+except ImportError:
+    pass
