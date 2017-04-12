@@ -11,7 +11,7 @@ from registration.backends.default.views import RegistrationView
 class UserRegistrationFormView(RegistrationView):
     form_class = UserRegistrationForm
     form2_class = UserProfileForm
-    template_name = 'register/registration_form.html'
+    template_name = 'registration/registration_form.html'
 
     # Displays blank form 
     def get(self, request):
@@ -68,5 +68,5 @@ def logout_view(self, request):
     return redirect('homepage')
     
 def registration_complete(request):
-    template_name = 'register/registration_complete.html'
+    template_name = 'registration/registration_complete.html'
     return render(request, template_name)
