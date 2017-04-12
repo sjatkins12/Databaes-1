@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.http import HttpResponse
-
+from pinax.stripe.actions import customers
 
 from account.forms import UserRegistrationForm, UserProfileForm
 from registration.backends.default.views import RegistrationView
@@ -30,6 +30,9 @@ class UserRegistrationFormView(RegistrationView):
             username = user_form.cleaned_data['username']
             password = user_form.cleaned_data['password1']
             user = super().register(user_form)
+            
+            # Create Stripe Customer upon registration
+            customers.create(user=user)
             # Now sort out the UserProfile instance.
             # Since we need to set the user attribute ourselves, we set commit=False.
             # This delays saving the model until we're ready to avoid integrity problems.

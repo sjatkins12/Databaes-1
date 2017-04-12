@@ -28,4 +28,5 @@ urlpatterns = [
     url(r'^logout/', logout_view, name='logout'),
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^register/', UserRegistrationFormView.as_view(), name='register'),
+    url(r'^payments/', include('pinax.stripe.urls')),
 ]
