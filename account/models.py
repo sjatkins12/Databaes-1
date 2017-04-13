@@ -3,33 +3,7 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-class Subscription(models.Model):
-    """
-    Fields-
-    1. start_date- Date which subscription starts
-    2. end_data- Date which subscription ends
-    3. Foreign Keys:
-    Relationships-
-    1. Many to One with Interest Group                  --In This Model
-    2. Many to One with UserProfile                     --In This Model
-    Note: Foreign Keys are set to 'Protect' so if a reference exists,
-    the reference won't be changed to null, so start_date and end_date
-    always references to a valid (or non-continuing) interest group
-    """
-    start_date = models.DateField()
-    end_date = models.DateField()
-    interest_group_id = models.ForeignKey('Crate.InterestGroup', on_delete=models.PROTECT)
-    user_id = models.ForeignKey('account.UserProfile', on_delete= models.PROTECT)
-
-    # This guarantees that box_id and user_id are unique (act as primary keys)
-    class Meta:
-        unique_together = ('interest_group_id', 'user_id')
-
-    def __str__(self):
-        return '{} {}'.format(self.interest_group_id, self.user_id)
-
-
-class Reports(models.Model):
+class Report(models.Model):
     """
     Fields-
     1. report- String which user records issues with a Box
@@ -50,7 +24,33 @@ class Reports(models.Model):
         unique_together = ('box_id', 'user_id')
 
     def __str__(self):
-        return '{} {}'.format(self.box_id, self.user_id)
+        return 'Report- Box: {}, User: {}'.format(self.box_id, self.user_id)
+
+
+class Subscription(models.Model):
+    """
+    Fields-
+    1. start_date- Date which subscription starts
+    2. end_data- Date which subscription ends
+    3. Foreign Keys:
+    Relationships-
+    1. Many to One with Interest Group                  --In This Model
+    2. Many to One with UserProfile                     --In This Model
+    Note: Foreign Keys are set to 'Protect' so if a reference exists,
+    the reference won't be changed to null, so start_date and end_date
+    always references to a valid (or non-continuing) interest group
+    """
+    start_date = models.DateField()
+    end_date = models.DateField(blank=True)
+    interest_group_id = models.ForeignKey('Crate.InterestGroup', on_delete=models.PROTECT)
+    user_id = models.ForeignKey('account.UserProfile', on_delete=models.PROTECT)
+
+    # This guarantees that box_id and user_id are unique (act as primary keys)
+    class Meta:
+        unique_together = ('interest_group_id', 'user_id')
+
+    def __str__(self):
+        return 'Subscription- Interest Group: {}, User: {}'.format(self.interest_group_id, self.user_id)
 
 
 class UserProfile(models.Model):
@@ -59,7 +59,7 @@ class UserProfile(models.Model):
     1. user- Holds a 1-1 relationship with predefine auth_user model
             - It already stores info like: email, username, password
             first name, last name, etc.
-    2. address- User's address
+    2. address- User's address                          --To Be Removed
     3. Foreign Keys:
     Relationships-
     1. Many to Many with Interest Group                 --In This Model
@@ -68,13 +68,13 @@ class UserProfile(models.Model):
     4. One to Many with Credit Card                     --Not completed yet
     5. One to Many with Shipping Address                --In 'ShippingAddress' Model
     """
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.PROTECT)
     address = models.CharField(max_length=255, blank=False)
     subscribes_to = models.ManyToManyField('Crate.InterestGroup', through='Subscription')
-    receives = models.ManyToManyField('Crate.Box', through='Reports')
+    receives = models.ManyToManyField('Crate.Box', through='Report')
 
     def __str__(self):
-        return self.user.username
+        return 'UserProfile- {}'.format(self.user.username)
 
 
 class ShippingAddress(models.Model):
@@ -85,7 +85,6 @@ class ShippingAddress(models.Model):
     Relationships-
     1. One to Many with UserProfile                     --In This Model
     """
-    # id (auto-generated) will act as the primary key
     user_id = models.ForeignKey(UserProfile)
     address = models.CharField(max_length=100)
 
@@ -94,7 +93,7 @@ class ShippingAddress(models.Model):
         unique_together = ('user_id', 'address')
 
     def __str__(self):
-        return '{} {}'.format(self.id, self.address)
+        return 'Shipping Address- User: {}, Address: {}'.format(self.id, self.address)
 
 
 class Discussion(models.Model):
@@ -108,8 +107,8 @@ class Discussion(models.Model):
     2. One to Many with Discussion                      --In This Model
     """
     comment = models.CharField(max_length=500)
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    interest_id = models.ForeignKey('Crate.InterestGroup', on_delete=models.CASCADE)
+    user = models.ForeignKey(UserProfile, on_delete=models.PROTECT)
+    interest_id = models.ForeignKey('Crate.InterestGroup', on_delete=models.PROTECT)
 
     def __str__(self):
-        return '{} {}'.format(self.id, self.user)
+        return 'Discussion- User: {}, Interest Group: {}'.format(self.user, self.interest_id)
