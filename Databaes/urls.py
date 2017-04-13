@@ -16,15 +16,17 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
-from account import views as custom_registration_views
+from account.views import UserRegistrationFormView, LoginView, logout_view
 from . import views
 
 urlpatterns = [
     url(r'^$', views.homepage, name='homepage'),
     url(r'^admin/', admin.site.urls),
     url(r'^crate/', include('Crate.urls')),
-    url(r'^login/', custom_registration_views.LoginView.as_view(), name='login'),
-    url(r'^logout/', custom_registration_views.logout_view, name='logout'),
+    url(r'^payment/', include('payment.urls')),
+    url(r'^login/', LoginView.as_view(), name='login'),
+    url(r'^logout/', logout_view, name='logout'),
     url(r'^accounts/', include('registration.backends.default.urls')),
-    url(r'^register/', custom_registration_views.UserRegistrationFormView.as_view(), name='register'),
+    url(r'^register/', UserRegistrationFormView.as_view(), name='register'),
+    url(r'^payments/', include('pinax.stripe.urls')),
 ]
