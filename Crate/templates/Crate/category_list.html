@@ -2,16 +2,17 @@
 {% load static %}
 
 {% block title %}
-<title>CrateUrself</title>
+    <title>CrateUrself</title>
 {% endblock %}
 
 {% block content %}
-	<!-- Navigation -->
+    <!-- Navigation -->
     <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand page-scroll" href="/">CrateUrself</a>
@@ -55,48 +56,47 @@
         <div class="container">
             <div class="intro-text">
                 <div class="intro-heading">Categories</div>
-				
-  <section id="66iii7776crate" class="bg-light-gray">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-sm-6 crate-item">
-                        <img src="{% static "media/1.png" %}">
-                    </a>
-                    <div class="crate-caption">
-                        <h1 style="color:#000000;">Category1</h4>
-                        <p class="text-muted">Surviving on food stamp, but still want cool shit? Look no further this crate is for you.</p>
+
+                <section id="66iii7776crate" class="bg-light-gray">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6 crate-item">
+                                <img src="{% static "media/1.png" %}">
+                                <div class="crate-caption">
+                                    <h1 style="color:#000000;">Category1</h1>
+                                    <p class="text-muted">Surviving on food stamp, but still want cool shit? Look no
+                                        further this crate is for you.</p>
+                                </div>
+                                <a class="page-scroll btn btn-primary" href="subcatpath">subcat1</a>
+                                <a class="page-scroll btn btn-primary" href="subcatpath">subcat2</a>
+
+                            </div>
+                            <div class="col-md-4 col-sm-6 crate-item">
+                                <img src="{% static "media/2.png" %}">
+                                <div class="crate-caption">
+                                    <h1 style="color:#000000;">Category2</h1>
+                                    <p class="text-muted">Website Design</p>
+                                </div>
+                                <a class="page-scroll btn btn-primary" href="subcatpath">subcat1</a>
+                                <a class="page-scroll btn btn-primary" href="subcatpath">subcat2</a>
+
+                            </div>
+                            <div class="col-md-4 col-sm-6 crate-item">
+                                <img src="{% static "media/3.png" %}">
+                                <div class="crate-caption">
+                                    <h1 style="color:#000000;">Category2</h1>
+                                    <p class="text-muted">Website Design</p>
+                                </div>
+                                <a class="page-scroll btn btn-primary" href="subcatpath">subcat1</a>
+                                <a class="page-scroll btn btn-primary" href="subcatpath">subcat2</a>
+
+
+                            </div>
+                            <div class="col-md-4 col-sm-6 crate-item">
+                            </div>
+                        </div>
                     </div>
-					  <a class="page-scroll btn btn-primary" href="subcatpath">subcat1</a>
-					    <a class="page-scroll btn btn-primary" href="subcatpath">subcat2</a>
-
-                </div>
-                <div class="col-md-4 col-sm-6 crate-item">
-                        <img src="{% static "media/2.png" %}">
-                    </a>
-                    <div class="crate-caption">
-                        <h1 style="color:#000000;">Category2</h1>
-                        <p class="text-muted">Website Design</p>
-                    </div>
-					  <a class="page-scroll btn btn-primary" href="subcatpath">subcat1</a>
-					    <a class="page-scroll btn btn-primary" href="subcatpath">subcat2</a>
-
-                </div>
-                <div class="col-md-4 col-sm-6 crate-item">
-                        <img src="{% static "media/3.png" %}" >
-                    </a>
-                    <div class="crate-caption">
-                        <h1 style="color:#000000;">Category2</h4>
-                        <p class="text-muted">Website Design</p>
-                    </div>
-					  <a class="page-scroll btn btn-primary" href="subcatpath">subcat1</a>
-					    <a class="page-scroll btn btn-primary" href="subcatpath">subcat2</a>
-
-
-                </div>
-                <div class="col-md-4 col-sm-6 crate-item">                   
-            </div>
-        </div>
-    </section>
+                </section>
             </div>
         </div>
     </header>
@@ -148,12 +148,17 @@
                             <div class="modal-body">
                                 <!-- Project Details Go Here -->
                                 <h2>The Food Stamp Crate</h2>
-								<img src="{% static "media/dank.jpg" %}" class="img-responsive img-rounded" alt="" style="width:304px;height:200px;margin: 0 auto;">
+                                <img src="{% static "media/dank.jpg" %}" class="img-responsive img-rounded" alt=""
+                                     style="width:304px;height:200px;margin: 0 auto;">
                                 <p><strong>Dank</strong></p>
-                                <p>Oh dear, look at you and your empty pocket. That's okay just take out a second mortgage on your home and subscribe to this dank box.</p>
-                                <p><strong>What is included?</strong> In this dank crate, you'll receive one dank item plus two not so dank item.</a></p>
-                                
-                                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                                <p>Oh dear, look at you and your empty pocket. That's okay just take out a second
+                                    mortgage on your home and subscribe to this dank box.</p>
+                                <p><strong>What is included?</strong> In this dank crate, you'll receive one dank item
+                                    plus two not so dank item.</p>
+
+                                <button type="button" class="btn btn-default" data-dismiss="modal"><i
+                                        class="fa fa-times"></i> Close
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -178,10 +183,19 @@
                             <div class="modal-body">
                                 <h2>The Middle Class Crate</h2>
                                 <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                <img class="img-responsive img-centered" src="img/crate/startup-framework-preview.png" alt="">
-                                <p><a href="http://designmodo.com/startup/?u=787">Startup Framework</a> is a website builder for professionals. Startup Framework contains components and complex blocks (PSD+HTML Bootstrap themes and templates) which can easily be integrated into almost any design. All of these components are made in the same style, and can easily be integrated into projects, allowing you to create hundreds of solutions for your future projects.</p>
-                                <p>You can preview Startup Framework <a href="http://designmodo.com/startup/?u=787">here</a>.</p>
-                                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close Project</button>
+                                <img class="img-responsive img-centered" src="img/crate/startup-framework-preview.png"
+                                     alt="">
+                                <p><a href="http://designmodo.com/startup/?u=787">Startup Framework</a> is a website
+                                    builder for professionals. Startup Framework contains components and complex blocks
+                                    (PSD+HTML Bootstrap themes and templates) which can easily be integrated into almost
+                                    any design. All of these components are made in the same style, and can easily be
+                                    integrated into projects, allowing you to create hundreds of solutions for your
+                                    future projects.</p>
+                                <p>You can preview Startup Framework <a
+                                        href="http://designmodo.com/startup/?u=787">here</a>.</p>
+                                <button type="button" class="btn btn-default" data-dismiss="modal"><i
+                                        class="fa fa-times"></i> Close Project
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -208,9 +222,16 @@
                                 <h2>The Billgate Crate</h2>
                                 <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
                                 <img class="img-responsive img-centered" src="img/crate/treehouse-preview.png" alt="">
-                                <p>Treehouse is a free PSD web template built by <a href="https://www.behance.net/MathavanJaya">Mathavan Jaya</a>. This is bright and spacious design perfect for people or startup companies looking to showcase their apps or other projects.</p>
-                                <p>You can download the PSD template in this crate sample item at <a href="http://freebiesxpress.com/gallery/treehouse-free-psd-web-template/">FreebiesXpress.com</a>.</p>
-                                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close Project</button>
+                                <p>Treehouse is a free PSD web template built by <a
+                                        href="https://www.behance.net/MathavanJaya">Mathavan Jaya</a>. This is bright
+                                    and spacious design perfect for people or startup companies looking to showcase
+                                    their apps or other projects.</p>
+                                <p>You can download the PSD template in this crate sample item at <a
+                                        href="http://freebiesxpress.com/gallery/treehouse-free-psd-web-template/">FreebiesXpress.com</a>.
+                                </p>
+                                <button type="button" class="btn btn-default" data-dismiss="modal"><i
+                                        class="fa fa-times"></i> Close Project
+                                </button>
                             </div>
                         </div>
                     </div>
