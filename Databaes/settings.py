@@ -15,6 +15,9 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -25,7 +28,7 @@ SECRET_KEY = 'p@zh%^j=%v^1y%9#y=l2vu9&*l#+550j#w#(=2g7$=r(y%4ul='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [*]
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -155,11 +158,3 @@ PINAX_STRIPE_SECRET_KEY = 'sk_test_GmaJVY0Z32BsxeTeqHh41ij7'
 # PINAX_STRIPE_SUBSCRIPTION_REQUIRED_REDIRECT = Defaults to none
 # PINAX_STRIPE_INVOICE_FROM_EMAIL
 
-# Heroku Setup
-import dj_database_url
-DATABASES['default'] = dj_database_url.config()
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-try:
-    from .local_settings import *
-except ImportError:
-    pass
