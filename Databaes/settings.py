@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'bootstrap_themes',
     'registration',
-    "pinax.stripe"
+    'pinax.stripe'
 ]
 
 MIDDLEWARE = [

@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.views.generic import View
 
 from .forms import ReportForm, DiscussionForm
+from .models import Category, SubCategory, InterestGroup
 
 
 # Create your views here.
@@ -30,12 +31,15 @@ class DiscussionFormView(View):
 
 
 def category_list(request):
-    return render(request, 'Crate/category_list.html', {})
+    categories = Category.objects.all()
+    return render(request, 'Crate/category_list.html', {'categories': categories})
 
 
 def category(request, category_name):
-    return render(request, 'Crate/category.html', {'category': category_name})
+    subcategories = SubCategory.objects.all().filter(category_name__category_name=category_name)
+    return render(request, 'Crate/category.html', {'category': category_name, 'subcategories': subcategories})
 
 
 def subcategory(request, subcategory_name):
-    return render(request, 'Crate/subcategory.html', {'subcategory': subcategory_name})
+    interest_groups = InterestGroup.objects.all().filter(subcategory_name__subcategory_name=subcategory_name)
+    return render(request, 'Crate/subcategory.html', {'subcategory': subcategory_name, 'interest_group': interest_groups})
