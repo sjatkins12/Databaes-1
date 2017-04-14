@@ -5,6 +5,83 @@
     <title>CrateUrself</title>
 {% endblock %}
 
+{% block style %}
+    <style type="text/css">
+        .counter {
+            background: #222;
+            -moz-box-shadow: inset 0 0 5px #000000;
+            -webkit-box-shadow: inset 0 0 5px #000000;
+            box-shadow: inset 0 0 5px #000000;
+            min-height: 150px;
+            text-align: center;
+        }
+
+        .counter h3 {
+            color: #E5E5E5;
+            font-size: 14px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: lighter;
+            letter-spacing: 1px;
+            padding-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        #countdown {
+            color: #FFFFFF;
+        }
+
+        #countdown span {
+            color: #E5E5E5;
+            font-size: 26px;
+            font-weight: normal;
+            margin-left: 20px;
+            margin-right: 20px;
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
+{% block script %}
+    <script>
+        // Script runs immediately when page is loaded
+        window.onload = function () {
+            // set the date we're counting down to
+            var target_date = new Date('April, 27, 2017').getTime();
+
+            // variables for time units
+            var days, hours, minutes, seconds;
+
+            // get tag element
+            var countdown = document.getElementById('countdown');
+
+            // update the tag with id "countdown" every 1 second
+            setInterval(function () {
+
+                // find the amount of "seconds" between now and target
+                var current_date = new Date().getTime();
+                var seconds_left = (target_date - current_date) / 1000;
+
+                // do some time calculations
+                days = parseInt(seconds_left / 86400);
+                seconds_left = seconds_left % 86400;
+
+                hours = parseInt(seconds_left / 3600);
+                seconds_left = seconds_left % 3600;
+
+                minutes = parseInt(seconds_left / 60);
+                seconds = parseInt(seconds_left % 60);
+
+                // format countdown string + set tag value
+                countdown.innerHTML = '<span class="days">' + days + ' <b>Days</b></span> <span class="hours">' + hours +
+                    ' <b>Hours</b></span> <span class="minutes">' + minutes +
+                    ' <b>Minutes</b></span> <span class="seconds">' + seconds + ' <b>Seconds</b></span>';
+
+            }, 1000);
+        }
+    </script>
+{% endblock %}
+
 {% block content %}
     <!-- Navigation -->
     <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
@@ -28,17 +105,11 @@
                         <a class="page-scroll" href="#services">Service</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#Crate">Crate</a>
+                        <a class="page-scroll" href="#crate">Crate</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#explore">Explore</a>
                     </li>
-                    <!-- TODO: Remove this from Nav-Bar -->
-                    <!--
-					<li>
-                        <a class="page-scroll" href="#about">About</a>
-                    </li>
-                    -->
                     <li>
                         <a class="page-scroll" href="#team">Team</a>
                     </li>
@@ -61,8 +132,10 @@
             </div>
         </div>
     </header>
+
     <!-- Services Section -->
-    <section id="services">
+    <!-- ICONS MUST BE 96x112 -->
+    <section id="services" class="bg-light-gray">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -74,20 +147,20 @@
             <div class="row text-center">
                 <div class="col-md-4">
                     <!-- TODO: make the images the same size and resizable  -->
-                    <img src="{% static "media/searchbar.jpg" %}" class="img-responsive img-rounded" alt=""
+                    <img src="{% static 'images/searchbar.jpg' %}" class="img-responsive img-rounded" alt=""
                          style="width:304px;height:200px;margin: 0 auto;">
                     <h4 class="service-heading">Browse</h4>
                     <p class="text-muted">Browse through hundreds of amazing, breathtaking, and spectacular items
-                        handselected by the DataBaes Team.</p>
+                        hand selected by the DataBaes Team.</p>
                 </div>
                 <div class="col-md-4">
-                    <img src="{% static "media/subscribe.jpg" %}" class="img-responsive img-rounded" alt=""
+                    <img src="{% static 'images/subscribe.jpg' %}" class="img-responsive img-rounded" alt=""
                          style="width:304px;height:200px;margin: 0 auto;">
                     <h4 class="service-heading">Subscribe</h4>
                     <p class="text-muted">Subscribe to receive our fantastic products.</p>
                 </div>
                 <div class="col-md-4">
-                    <img src="{% static "media/receivebox.jpg" %}" class="img-responsive img-rounded" alt=""
+                    <img src="{% static 'images/receivebox.jpg' %}" class="img-responsive img-rounded" alt=""
                          style="width:304px;height:200px;margin: 0 auto;">
                     <h4 class="service-heading">Receive</h4>
                     <p class="text-muted">Receive your monthly box today!</p>
@@ -97,44 +170,59 @@
     </section>
 
     <!-- crate Grid Section -->
-    <section id="66iii7776crate" class="bg-light-gray">
+    <!-- IMAGES NEED TO BE  360x260-->
+    <!-- DONT USE PNG THEY LOOK BAD DUE TO NO BORDER-->
+    <section id="crate" class="bg-light-gray">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Crates</h2>
-                    <h3 class="section-subheading text-muted">We offer three subscription plan.</h3>
+                    <h2 class="section-heading">Monthly Featured Crates</h2>
+                    <h3 class="section-subheading text-muted">Get Voting!</h3>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4 col-sm-6 crate-item">
-                    <a href="#crateModal1" class="crate-link" data-toggle="modal">
-                        <img src="{% static "media/poorcrate.png" %}" class="img-responsive">
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#crateModal1" class="portfolio-link" data-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i class="fa fa-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="{% static 'images/poorcrate.png' %}" class="img-responsive">
                     </a>
-                    <div class="crate-caption">
+                    <div class="portfolio-caption">
                         <h4>Food Stamps</h4>
                         <p class="text-muted">Surviving on food stamp, but still want cool shit? Look no further this
                             crate is for you.</p>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6 crate-item">
-                    <a href="#crateModal2" class="crate-link" data-toggle="modal">
-                        <img src="{% static "media/middleclass.png" %}" class="img-responsive">
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#crateModal2" class="portfolio-link" data-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i class="fa fa-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="{% static 'images/middleclass.png' %}" class="img-responsive">
                     </a>
-                    <div class="crate-caption">
+                    <div class="portfolio-caption">
                         <h4>Middle Class</h4>
                         <p class="text-muted">Website Design</p>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6 crate-item">
-                    <a href="#crateModal3" class="crate-link" data-toggle="modal">
-                        <img src="{% static "media/billgate.png" %}" class="img-responsive">
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#crateModal3" class="portfolio-link" data-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i class="fa fa-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="{% static 'images/billgate.png' %}" class="img-responsive">
                     </a>
-                    <div class="crate-caption">
+                    <div class="portfolio-caption">
                         <h4>Bill Gate</h4>
                         <p class="text-muted">Website Design</p>
                     </div>
-                </div>
-                <div class="col-md-4 col-sm-6 crate-item">
                 </div>
             </div>
         </div>
@@ -147,11 +235,17 @@
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Crates filled with random items!</h2>
                     <h3 class="section-subheading text-muted">Dozens of potential crates to choose from.</h3>
-                    <a href="{% url "category_list" %}" class="page-scroll btn btn-xl">Explore the categories</a>
+                    <a href="{% url 'category_list' %}" class="page-scroll btn btn-xl">Explore the categories</a>
                 </div>
             </div>
         </div>
     </section>
+
+    <div class="counter">
+        <h3>VOTING PERIOD ENDS IN:</h3>
+        <div id="countdown">
+        </div><!-- /#Countdown Div -->
+    </div> <!-- /.Counter Div -->
 
     <!-- Team Section -->
     <section id="team">
@@ -165,21 +259,21 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="team-member">
-                        <img src="{% static "media/steve.png" %}" class="img-responsive img-circle" alt="">
+                        <img src="{% static 'images/Steve.png' %}" class="img-responsive img-circle" alt="">
                         <h4>Steven Tu</h4>
                         <p class="text-muted">Lead Designer</p>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="team-member">
-                        <img src="{% static "media/steve.png" %}" class="img-responsive img-circle" alt="">
+                        <img src="{% static 'images/Steve.png' %}" class="img-responsive img-circle" alt="">
                         <h4>Lawrence Qiu</h4>
                         <p class="text-muted">Lead Programmer</p>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="team-member">
-                        <img src="{% static "media/steve.png" %}" class="img-responsive img-circle" alt="">
+                        <img src="{% static 'images/Steve.png' %}" class="img-responsive img-circle" alt="">
                         <h4>Kam Wai Li</h4>
                         <p class="text-muted">Data Engineer</p>
                     </div>
@@ -188,14 +282,14 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="team-member">
-                        <img src="{% static "media/steve.png" %}" class="img-responsive img-circle" alt="">
+                        <img src="{% static 'images/Steve.png' %}" class="img-responsive img-circle" alt="">
                         <h4>Jesse Rong</h4>
                         <p class="text-muted">Programmer</p>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="team-member">
-                        <img src="{% static "media/steve.png" %}" class="img-responsive img-circle" alt="">
+                        <img src="{% static 'images/Steve.png' %}" class="img-responsive img-circle" alt="">
                         <h4>Sam Atkins</h4>
                         <p class="text-muted">Programmer</p>
                     </div>
@@ -303,8 +397,7 @@
                             <div class="modal-body">
                                 <!-- Project Details Go Here -->
                                 <h2>The Food Stamp Crate</h2>
-                                <img src="{% static "media/dank.jpg" %}" class="img-responsive img-rounded" alt=""
-                                     style="width:304px;height:200px;margin: 0 auto;">
+                                <img class="img-responsive img-rounded" src="{% static 'images/dank.jpg' %}" alt="">
                                 <p><strong>Dank</strong></p>
                                 <p>Oh dear, look at you and your empty pocket. That's okay just take out a second
                                     mortgage on your home and subscribe to this dank box.</p>
@@ -338,8 +431,7 @@
                             <div class="modal-body">
                                 <h2>The Middle Class Crate</h2>
                                 <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                <img class="img-responsive img-centered" src="img/crate/startup-framework-preview.png"
-                                     alt="">
+                                <img class="img-responsive img-centered" src="{% static 'images/dank.jpg' %}" alt="">
                                 <p><a href="http://designmodo.com/startup/?u=787">Startup Framework</a> is a website
                                     builder for professionals. Startup Framework contains components and complex blocks
                                     (PSD+HTML Bootstrap themes and templates) which can easily be integrated into almost
@@ -376,7 +468,7 @@
                                 <!-- Project Details Go Here -->
                                 <h2>The Billgate Crate</h2>
                                 <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                <img class="img-responsive img-centered" src="img/crate/treehouse-preview.png" alt="">
+                                <img class="img-responsive img-centered" src="{% static 'images/dank.jpg' %}" alt="">
                                 <p>Treehouse is a free PSD web template built by <a
                                         href="https://www.behance.net/MathavanJaya">Mathavan Jaya</a>. This is bright
                                     and spacious design perfect for people or startup companies looking to showcase

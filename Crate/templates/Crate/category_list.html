@@ -21,29 +21,8 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="hidden">
-                        <a href="#page-top"></a>
-                    </li>
                     <li>
-                        <a class="page-scroll" href="#url">Service</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#Crate">Crate</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#explore">Explore</a>
-                    </li>
-                    <!-- TODO: Remove this from Nav-Bar -->
-                    <!--
-					<li>
-                        <a class="page-scroll" href="#about">About</a>
-                    </li>
-                    -->
-                    <li>
-                        <a class="page-scroll" href="#team">Team</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#contact">Contact</a>
+                        <a class="page-scroll" href="#crate">Crate</a>
                     </li>
                 </ul>
             </div>
@@ -57,38 +36,38 @@
             <div class="intro-text">
                 <div class="intro-heading">Categories</div>
 
-                <section id="66iii7776crate" class="bg-light-gray">
+                <section id="crate" class="bg-light-gray">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-4 col-sm-6 crate-item">
-                                <img src="{% static "media/1.png" %}">
+                                <img src="{% static "Crate/1.png" %}">
                                 <div class="crate-caption">
                                     <h1 style="color:#000000;">Category1</h1>
                                     <p class="text-muted">Surviving on food stamp, but still want cool shit? Look no
                                         further this crate is for you.</p>
                                 </div>
-                                <a class="page-scroll btn btn-primary" href="subcatpath">subcat1</a>
-                                <a class="page-scroll btn btn-primary" href="subcatpath">subcat2</a>
+                                <a class="page-scroll btn btn-primary" href="{% url 'subcategory' 'test' %}">subcat1</a>
+                                <a class="page-scroll btn btn-primary" href="{% url 'subcategory' 'test' %}">subcat2</a>
 
                             </div>
                             <div class="col-md-4 col-sm-6 crate-item">
-                                <img src="{% static "media/2.png" %}">
+                                <img src="{% static "Crate/2.png" %}">
                                 <div class="crate-caption">
                                     <h1 style="color:#000000;">Category2</h1>
                                     <p class="text-muted">Website Design</p>
                                 </div>
-                                <a class="page-scroll btn btn-primary" href="subcatpath">subcat1</a>
-                                <a class="page-scroll btn btn-primary" href="subcatpath">subcat2</a>
+                                <a class="page-scroll btn btn-primary" href="{% url 'subcategory' 'test' %}">subcat1</a>
+                                <a class="page-scroll btn btn-primary" href="{% url 'subcategory' 'test' %}">subcat2</a>
 
                             </div>
                             <div class="col-md-4 col-sm-6 crate-item">
-                                <img src="{% static "media/3.png" %}">
+                                <img src="{% static "Crate/3.png" %}">
                                 <div class="crate-caption">
                                     <h1 style="color:#000000;">Category2</h1>
                                     <p class="text-muted">Website Design</p>
                                 </div>
-                                <a class="page-scroll btn btn-primary" href="subcatpath">subcat1</a>
-                                <a class="page-scroll btn btn-primary" href="subcatpath">subcat2</a>
+                                <a class="page-scroll btn btn-primary" href="{% url 'subcategory' 'test' %}">subcat1</a>
+                                <a class="page-scroll btn btn-primary" href="{% url 'subcategory' 'test' %}">subcat2</a>
 
 
                             </div>
@@ -107,16 +86,7 @@
                 <div class="col-md-4">
                     <span class="copyright">Copyright &copy; Databaes 2017</span>
                 </div>
-                <div class="col-md-4">
-                    <ul class="list-inline social-buttons">
-                        <li><a href="#"><i class="fa fa-twitter"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a>
-                        </li>
-                    </ul>
-                </div>
+                <div class="col-md-4"></div>
                 <div class="col-md-4">
                     <ul class="list-inline quicklinks">
                         <li><a href="#">Privacy Policy</a>
@@ -148,7 +118,7 @@
                             <div class="modal-body">
                                 <!-- Project Details Go Here -->
                                 <h2>The Food Stamp Crate</h2>
-                                <img src="{% static "media/dank.jpg" %}" class="img-responsive img-rounded" alt=""
+                                <img src="{% static "images/dank.jpg" %}" class="img-responsive img-rounded" alt=""
                                      style="width:304px;height:200px;margin: 0 auto;">
                                 <p><strong>Dank</strong></p>
                                 <p>Oh dear, look at you and your empty pocket. That's okay just take out a second
@@ -183,7 +153,7 @@
                             <div class="modal-body">
                                 <h2>The Middle Class Crate</h2>
                                 <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                <img class="img-responsive img-centered" src="img/crate/startup-framework-preview.png"
+                                <img class="img-responsive img-centered" src="{% static "images/dank.jpg" %}"
                                      alt="">
                                 <p><a href="http://designmodo.com/startup/?u=787">Startup Framework</a> is a website
                                     builder for professionals. Startup Framework contains components and complex blocks
@@ -221,7 +191,7 @@
                                 <!-- Project Details Go Here -->
                                 <h2>The Billgate Crate</h2>
                                 <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                <img class="img-responsive img-centered" src="img/crate/treehouse-preview.png" alt="">
+                                <img class="img-responsive img-centered" src="{% static "images/dank.jpg" %}" alt="">
                                 <p>Treehouse is a free PSD web template built by <a
                                         href="https://www.behance.net/MathavanJaya">Mathavan Jaya</a>. This is bright
                                     and spacious design perfect for people or startup companies looking to showcase
