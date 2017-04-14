@@ -72,7 +72,11 @@ class Category(models.Model):
     Fields-
     1. category_name- Name of the category
     2. category_description- Description
+<<<<<<< HEAD
     3. Foreign Keys:
+=======
+    2. Foreign Keys:
+>>>>>>> BootstrapBranch
     Relationships-
     1. One to Many with Subcategory                         --In 'Subcategory' Model
     """
@@ -108,9 +112,14 @@ class InterestGroup(models.Model):
     1. interest_id- Primary key (Identifier) of Interest Group
     2. interest_group_name- Name of the interest_group
     3. subscription_cost- Monthly price of a box
+<<<<<<< HEAD
     4. subcategory_name- Name of subcategory that holds this interest_group
     5. interest_group_description- Description
     6. Foreign Keys:
+=======
+    4. interest_group_description- Description
+    5. Foreign Keys:
+>>>>>>> BootstrapBranch
     Relationships-
     1. Many to Many with User                           --In 'User' Model
     2. One to Many with Discussion                      --In 'Discussion' Model
@@ -121,6 +130,7 @@ class InterestGroup(models.Model):
     """
     interest_group_name = models.CharField(max_length=30)
     subscription_cost = models.DecimalField(max_digits=6, decimal_places=2)
+    interest_group_description = models.CharField(max_length=100, blank=True)
     subcategory_name = models.ForeignKey(SubCategory, on_delete=models.PROTECT)
     have = models.ManyToManyField('Crate.Item', blank=True)
     interest_group_description = models.CharField(max_length=100, blank=True)
