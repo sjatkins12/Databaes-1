@@ -6,6 +6,43 @@
 {% endblock %}
 
 {% block content %}
+<style type="text/css">
+
+
+.counter {
+  background: #222;
+  -moz-box-shadow:    inset 0 0 5px #000000;
+  -webkit-box-shadow: inset 0 0 5px #000000;
+  box-shadow:         inset 0 0 5px #000000;
+  min-height: 150px;
+  text-align: center;
+}
+
+.counter h3 {
+  color: #E5E5E5;
+  font-size: 14px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: lighter;
+  letter-spacing: 1px;
+  padding-top: 20px;
+  margin-bottom: 30px;
+}
+
+#countdown {
+  color: #FFFFFF;
+}
+
+#countdown span {
+  color: #E5E5E5;
+  font-size: 26px;
+  font-weight: normal;
+  margin-left: 20px;
+  margin-right: 20px;
+  text-align: center;
+}
+}
+</style>
     <!-- Navigation -->
     <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
         <div class="container">
@@ -28,7 +65,7 @@
                         <a class="page-scroll" href="#services">Service</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#Crate">Crate</a>
+                        <a class="page-scroll" href="#portfolio">Crate</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#explore">Explore</a>
@@ -61,8 +98,10 @@
             </div>
         </div>
     </header>
+	
     <!-- Services Section -->
-    <section id="services">
+    <!-- ICONS MUST BE 96x112 -->
+    <section id="services" class="bg-light-gray">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -96,50 +135,7 @@
         </div>
     </section>
 
-    <!-- crate Grid Section -->
-    <section id="66iii7776crate" class="bg-light-gray">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Crates</h2>
-                    <h3 class="section-subheading text-muted">We offer three subscription plan.</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 col-sm-6 crate-item">
-                    <a href="#crateModal1" class="crate-link" data-toggle="modal">
-                        <img src="{% static "poorcrate.png" %}" class="img-responsive">
-                    </a>
-                    <div class="crate-caption">
-                        <h4>Food Stamps</h4>
-                        <p class="text-muted">Surviving on food stamp, but still want cool shit? Look no further this
-                            crate is for you.</p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 crate-item">
-                    <a href="#crateModal2" class="crate-link" data-toggle="modal">
-                        <img src="{% static "middleclass.png" %}" class="img-responsive">
-                    </a>
-                    <div class="crate-caption">
-                        <h4>Middle Class</h4>
-                        <p class="text-muted">Website Design</p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 crate-item">
-                    <a href="#crateModal3" class="crate-link" data-toggle="modal">
-                        <img src="{% static "billgate.png" %}" class="img-responsive">
-                    </a>
-                    <div class="crate-caption">
-                        <h4>Bill Gate</h4>
-                        <p class="text-muted">Website Design</p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 crate-item">
-                </div>
-            </div>
-        </div>
-    </section>
-
+	
     <!-- Explore Section -->
     <section id="explore">
         <div class="container">
@@ -152,9 +148,76 @@
             </div>
         </div>
     </section>
+			<div class="counter">
+				<h3>VOTING PERIOD ENDS IN:</h3>
+			<div id="countdown">
+			</div><!-- /#Countdown Div -->
+		</div> <!-- /.Counter Div -->
+    <!-- crate Grid Section -->
+    <!-- IMAGES NEED TO BE  360x260-->
+    <!-- DONT USE PNG THEY LOOK BAD DUE TO NO BORDER-->
+	
+    <section id="portfolio" class="bg-light-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Monthly Featured Crates</h2>
+                    <h3 class="section-subheading text-muted">Get Voting!</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#crateModal1" class="portfolio-link" data-toggle="modal">
+						<div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i class="fa fa-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="{% static "poorcrate.png" %}" class="img-responsive">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Food Stamps</h4>
+                        <p class="text-muted">Surviving on food stamp, but still want cool shit? Look no further this
+                            crate is for you.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#crateModal2" class="portfolio-link" data-toggle="modal">
+						<div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i class="fa fa-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="{% static "middleclass.png" %}" class="img-responsive">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Middle Class</h4>
+                        <p class="text-muted">Website Design</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#crateModal3" class="portfolio-link" data-toggle="modal">
+						<div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i class="fa fa-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="{% static "billgate.png" %}" class="img-responsive">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Bill Gate</h4>
+                        <p class="text-muted">Website Design</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
 
     <!-- Team Section -->
-    <section id="team">
+    <section id="team" >
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -394,5 +457,39 @@
             </div>
         </div>
     </div>
+	
+<script>
+// set the date we're counting down to
+var target_date = new Date('April, 27, 2017').getTime();
+ 
+// variables for time units
+var days, hours, minutes, seconds;
+ 
+// get tag element
+var countdown = document.getElementById('countdown');
+ 
+// update the tag with id "countdown" every 1 second
+setInterval(function () {
+ 
+    // find the amount of "seconds" between now and target
+    var current_date = new Date().getTime();
+    var seconds_left = (target_date - current_date) / 1000;
+ 
+    // do some time calculations
+    days = parseInt(seconds_left / 86400);
+    seconds_left = seconds_left % 86400;
+     
+    hours = parseInt(seconds_left / 3600);
+    seconds_left = seconds_left % 3600;
+     
+    minutes = parseInt(seconds_left / 60);
+    seconds = parseInt(seconds_left % 60);
+     
+    // format countdown string + set tag value
+    countdown.innerHTML = '<span class="days">' + days +  ' <b>Days</b></span> <span class="hours">' + hours + ' <b>Hours</b></span> <span class="minutes">'
+    + minutes + ' <b>Minutes</b></span> <span class="seconds">' + seconds + ' <b>Seconds</b></span>';  
+ 
+}, 1000);
+</script>
 
 {% endblock %}
