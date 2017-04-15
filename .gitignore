@@ -88,5 +88,8 @@ ENV/
 # Rope project settings
 .ropeproject
 
-#Pycharm
+# Pycharm
 .idea/
+
+# Collectstatic Files
+deployment/
