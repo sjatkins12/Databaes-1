@@ -100,9 +100,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Use the recommended django mysql adapter
         'NAME': 'databaes',
-        'USER': 'lqiu96',
-        'PASSWORD': 'pennstate2018',
-        'HOST': '108.16.36.150',  # Or an IP Address that your DB is hosted on
+        'USER': 'root',
+        'PASSWORD': 'admin',
+        'HOST': 'localhost',  # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }

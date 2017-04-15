@@ -39,9 +39,13 @@ def category_list(request):
                 cat_subcat_map[category] = [sub_category]
             else:
                 cat_subcat_map.get(category).append(sub_category)
+    if len(cat_subcat_map) == 0:
+        category_width = 0
+    else:
+        category_width = 100 / len(cat_subcat_map)
     return render(request, 'Crate/category_list.html',
                   {'category_map': cat_subcat_map,
-                   'category_width': 100 / len(cat_subcat_map)})
+                   'category_width': category_width})
 
 
 def subcategory(request, subcategory_name):

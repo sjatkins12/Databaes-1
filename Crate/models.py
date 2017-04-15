@@ -72,12 +72,14 @@ class Category(models.Model):
     Fields-
     1. category_name- Name of the category
     2. category_description- Description
-    2. Foreign Keys:
+    3. category_image- Image of category
+    4. Foreign Keys:
     Relationships-
     1. One to Many with Subcategory                         --In 'Subcategory' Model
     """
     category_name = models.CharField(max_length=20, primary_key=True)
     category_description = models.CharField(max_length=100, blank=True)
+    category_image = models.ImageField(upload_to='images/', blank=True)
 
     def __str__(self):
         return 'Category- {}'.format(self.category_name)
@@ -88,7 +90,8 @@ class SubCategory(models.Model):
     1. subcategory_name- Name of the subcategory
     2. category_name- Name of the category that holds this subcategory
     3. subcategory_description- Description
-    4. Foreign Keys:
+    4. subcategory_image- Subcategory Image
+    5. Foreign Keys:
     Relationships-
     1. One to Many with Category                            --In This Model
     2. One to Many with Interest Group                      --In This Model
@@ -97,6 +100,7 @@ class SubCategory(models.Model):
     subcategory_name = models.CharField(max_length=30, primary_key=True)
     category_name = models.ForeignKey(Category, on_delete=models.PROTECT)
     subcategory_description = models.CharField(max_length=100, blank=True)
+    subcategory_image = models.ImageField(upload_to='images/', blank=True)
 
     def __str__(self):
         return 'Subcategory- {}'.format(self.subcategory_name)
@@ -123,6 +127,7 @@ class InterestGroup(models.Model):
     interest_group_description = models.CharField(max_length=100, blank=True)
     subcategory_name = models.ForeignKey(SubCategory, on_delete=models.PROTECT)
     have = models.ManyToManyField('Crate.Item', blank=True)
+    interest_group_image = models.ImageField(upload_to='images/', blank=True)
 
     def __str__(self):
         return 'Interest Group- {}'.format(self.interest_group_name)

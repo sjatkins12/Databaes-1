@@ -57,8 +57,12 @@
                                         <a class="page-scroll btn btn-primary"
                                            href="category/subcategory/{{ subcategory.subcategory_name }}">
                                             {{ subcategory.subcategory_name }}</a>
+                                        {% empty %}
+                                        <b class="col-lg-12 text-center">No Subcategories for this category!</b>
                                     {% endfor %}
                                 </div>
+                                {% empty %}
+                                <b class="col-lg-12 text-center" style="color: black">No Categories to choose from!</b>
                             {% endfor %}
                         </div>
                     </div>

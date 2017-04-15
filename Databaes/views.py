@@ -30,10 +30,12 @@ def homepage(request):
         for item in Item.objects.filter(contained_in=box):
             items.append(item)
     display_items = []
-    for _ in range(3):
-        num = randint(0, len(items) - 1)
-        chosen_item = items[num]
-        display_items.append(chosen_item)
-        items.remove(chosen_item)
+    # Checks to make sure we have items in our database
+    if len(items) > 0:
+        for _ in range(3):
+            num = randint(0, len(items) - 1)
+            chosen_item = items[num]
+            display_items.append(chosen_item)
+            items.remove(chosen_item)
     return render(request, 'homepage.html', {'cycle_date': end_of_month,
                                              'items': display_items})
