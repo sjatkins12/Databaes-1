@@ -1,8 +1,17 @@
+import os
+import uuid
+
 from django.core.exceptions import ValidationError
 from django.db import models
 
 
 # Create your models here.
+
+def generate_unique_file_name(instance, filename):
+    ext_name = filename.split('.')[-1]
+    file_name = '{}.{}'.format(uuid.uuid4(), ext_name)
+    return os.path.join('images', filename)
+
 
 class Supplier(models.Model):
     """
@@ -79,7 +88,7 @@ class Category(models.Model):
     """
     category_name = models.CharField(max_length=20, primary_key=True)
     category_description = models.CharField(max_length=100, blank=True)
-    category_image = models.ImageField(upload_to='images/', blank=True)
+    category_image = models.ImageField(upload_to=generate_unique_file_name, blank=True)
 
     def __str__(self):
         return 'Category- {}'.format(self.category_name)
@@ -100,7 +109,7 @@ class SubCategory(models.Model):
     subcategory_name = models.CharField(max_length=30, primary_key=True)
     category_name = models.ForeignKey(Category, on_delete=models.PROTECT)
     subcategory_description = models.CharField(max_length=100, blank=True)
-    subcategory_image = models.ImageField(upload_to='images/', blank=True)
+    subcategory_image = models.ImageField(upload_to=generate_unique_file_name, blank=True)
 
     def __str__(self):
         return 'Subcategory- {}'.format(self.subcategory_name)
@@ -127,7 +136,7 @@ class InterestGroup(models.Model):
     interest_group_description = models.CharField(max_length=100, blank=True)
     subcategory_name = models.ForeignKey(SubCategory, on_delete=models.PROTECT)
     have = models.ManyToManyField('Crate.Item', blank=True)
-    interest_group_image = models.ImageField(upload_to='images/', blank=True)
+    interest_group_image = models.ImageField(upload_to=generate_unique_file_name, blank=True)
 
     def __str__(self):
         return 'Interest Group- {}'.format(self.interest_group_name)

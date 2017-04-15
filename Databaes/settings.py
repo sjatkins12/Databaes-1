@@ -25,7 +25,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'deployment', 'media')
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 

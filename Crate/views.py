@@ -39,6 +39,8 @@ def category_list(request):
                 cat_subcat_map[category] = [sub_category]
             else:
                 cat_subcat_map.get(category).append(sub_category)
+            continue
+        cat_subcat_map[category] = []
     if len(cat_subcat_map) == 0:
         category_width = 0
     else:
