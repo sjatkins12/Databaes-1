@@ -22,7 +22,8 @@ class BoxVoteFormView(View):
 class DiscussionFormView(View):
     def get(self, request, *args, **kwargs):
         form = DiscussionForm()
-        return render(request, 'Crate/box_discussion.html', {'interest_group': kwargs['interest_group_name'], 'form': form})
+        return render(request, 'Crate/box_discussion.html',
+                      {'interest_group': kwargs['interest_group_name'], 'form': form})
 
     def post(self, request, *args, **kwargs):
         form = DiscussionForm(request.POST)
@@ -31,15 +32,23 @@ class DiscussionFormView(View):
 
 
 def category_list(request):
-    categories = Category.objects.all()
-    return render(request, 'Crate/category_list.html', {'categories': categories})
+    cat_subcat_map = {}
+    for category in Category.objects.all().order_by('pk'):
+        for subcategory in SubCategory.objects.all().filter(category_name__category_name__contains=category.category_name):
+            if cat_subcat_map.get(category) is None:
+                cat_subcat_map[category] = [subcategory]
+            else:
+                cat_subcat_map.get(category).append(subcategory)
+    return render(request, 'Crate/category_list.html', {'category_map': cat_subcat_map,
+                                                        'category_width': 100 / len(cat_subcat_map)})
 
 
-def category(request, category_name):
-    subcategories = SubCategory.objects.all().filter(category_name__category_name=category_name)
-    return render(request, 'Crate/category.html', {'category': category_name, 'subcategories': subcategories})
+# def category(request, category_name):
+#     subcategories = SubCategory.objects.all().filter(category_name__category_name=category_name)
+#     return render(request, 'Crate/category.html', {'category': category_name, 'subcategories': subcategories})
 
 
 def subcategory(request, subcategory_name):
     interest_groups = InterestGroup.objects.all().filter(subcategory_name__subcategory_name=subcategory_name)
-    return render(request, 'Crate/subcategory.html', {'subcategory': subcategory_name, 'interest_group': interest_groups})
+    return render(request, 'Crate/subcategory.html',
+                  {'subcategory': subcategory_name, 'interest_group': interest_groups})
