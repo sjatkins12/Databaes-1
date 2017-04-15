@@ -43,11 +43,11 @@
 {% endblock %}
 
 {% block script %}
-    <script>
+    <script type="text/javascript">
         // Script runs immediately when page is loaded
         window.onload = function () {
             // set the date we're counting down to
-            var target_date = new Date('April, 27, 2017').getTime();
+            var target_date = new Date('{{ cycle_date.year }}, {{ cycle_date.month }}, {{ cycle_date.day }}').getTime();
 
             // variables for time units
             var days, hours, minutes, seconds;
@@ -72,10 +72,29 @@
                 minutes = parseInt(seconds_left / 60);
                 seconds = parseInt(seconds_left % 60);
 
+                var display = '';
+
+                var get_display_text = function (num, class_name, singular_unit, plural_unit) {
+                    if (num > 0) {
+                        display += '<span class=' + class_name + '>' + num;
+                        if (num === 1) {
+                            display += ' <b>' + singular_unit + '</b></span>'
+                        } else {
+                            display += ' <b>' + plural_unit + '</b></span>'
+                        }
+                    }
+                };
+
+                get_display_text(days, 'days', 'Day', 'Days');
+                get_display_text(hours, 'hours', 'Hour', 'Hours');
+                get_display_text(minutes, 'minutes', 'Minute', 'Minutes');
+                get_display_text(seconds, 'seconds', 'Second', 'Seconds');
+
                 // format countdown string + set tag value
-                countdown.innerHTML = '<span class="days">' + days + ' <b>Days</b></span> <span class="hours">' + hours +
-                    ' <b>Hours</b></span> <span class="minutes">' + minutes +
-                    ' <b>Minutes</b></span> <span class="seconds">' + seconds + ' <b>Seconds</b></span>';
+                if (display.length === 0) {
+                    display = '<b>Sorry. Voting has ended for this cycle.</b>'
+                }
+                countdown.innerHTML = display;
 
             }, 1000);
         }
@@ -297,8 +316,6 @@
             </div>
         </div>
     </section>
-
-
 
     <!-- TODO: Do we need a contact section? Could we make this a login/register section or something? -->
     <!-- Contact Section -->

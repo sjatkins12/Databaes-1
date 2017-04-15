@@ -34,21 +34,20 @@ class DiscussionFormView(View):
 def category_list(request):
     cat_subcat_map = {}
     for category in Category.objects.all().order_by('pk'):
-        for subcategory in SubCategory.objects.all().filter(category_name__category_name__contains=category.category_name):
+        for sub_category in SubCategory.objects.all().filter(
+                category_name__category_name__icontains=category.category_name):
             if cat_subcat_map.get(category) is None:
-                cat_subcat_map[category] = [subcategory]
+                cat_subcat_map[category] = [sub_category]
             else:
-                cat_subcat_map.get(category).append(subcategory)
-    return render(request, 'Crate/category_list.html', {'category_map': cat_subcat_map,
-                                                        'category_width': 100 / len(cat_subcat_map)})
-
-
-# def category(request, category_name):
-#     subcategories = SubCategory.objects.all().filter(category_name__category_name=category_name)
-#     return render(request, 'Crate/category.html', {'category': category_name, 'subcategories': subcategories})
+                cat_subcat_map.get(category).append(sub_category)
+    return render(request, 'Crate/category_list.html',
+                  {'category_map': cat_subcat_map,
+                   'category_width': 100 / len(cat_subcat_map)})
 
 
 def subcategory(request, subcategory_name):
-    interest_groups = InterestGroup.objects.all().filter(subcategory_name__subcategory_name=subcategory_name)
+    interest_groups = InterestGroup.objects.all().filter(subcategory_name__subcategory_name__icontains=subcategory_name)
     return render(request, 'Crate/subcategory.html',
-                  {'subcategory': subcategory_name, 'interest_group': interest_groups})
+                  {'subcategory': subcategory_name,
+                   'interest_group': interest_groups,
+                   'interest_width': 100 / len(interest_groups)})
