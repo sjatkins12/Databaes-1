@@ -93,3 +93,6 @@ ENV/
 
 # Collectstatic Files
 deployment/static/
+
+# dumpdata
+data.json
