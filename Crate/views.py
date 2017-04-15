@@ -33,9 +33,8 @@ class DiscussionFormView(View):
 
 def category_list(request):
     cat_subcat_map = {}
-    for category in Category.objects.all().order_by('pk'):
-        for sub_category in SubCategory.objects.all().filter(
-                category_name__category_name__icontains=category.category_name):
+    for category in Category.objects.order_by('pk'):
+        for sub_category in SubCategory.objects.filter(category_name__category_name__icontains=category.category_name):
             if cat_subcat_map.get(category) is None:
                 cat_subcat_map[category] = [sub_category]
             else:
@@ -46,7 +45,7 @@ def category_list(request):
 
 
 def subcategory(request, subcategory_name):
-    interest_groups = InterestGroup.objects.all().filter(subcategory_name__subcategory_name__icontains=subcategory_name)
+    interest_groups = InterestGroup.objects.filter(subcategory_name__subcategory_name__icontains=subcategory_name)
     return render(request, 'Crate/subcategory.html',
                   {'subcategory': subcategory_name,
                    'interest_group': interest_groups,
