@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     'account',
     'payment',
     'bootstrap3',
-    'bootstrap_themes',
     'registration',
     'pinax.stripe',
 ]
