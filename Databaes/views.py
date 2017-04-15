@@ -8,9 +8,12 @@ from Crate.models import SellingCycle, Box, Item
 
 
 def homepage(request):
+    # Sets the end of the cycle date to be the last day of the month
     today = date.today()
     _, num_days = monthrange(today.year, today.month)
     end_of_month = datetime(today.year, today.month, num_days)
+    # TODO: Set the end of the month as 1 minute before the start of the new month
+    # Checks to see if end of the month is today
     if end_of_month == today:
         year = today.year
         next_month = (today.month + 1) % 12
@@ -19,6 +22,7 @@ def homepage(request):
         _, num_days = monthrange(year, next_month)
         end_of_month = datetime(year, next_month, num_days)
 
+    # Finds 3 random items to display on the homepage
     curr_selling_cycle = SellingCycle.objects.filter(cycle_date__lte=date.today()).order_by('-cycle_date').first()
     boxes = Box.objects.filter(sold_during__cycle_date=curr_selling_cycle.cycle_date)
     items = []

@@ -200,13 +200,18 @@
                 </div>
             </div>
             <div class="row">
-                <!-- TODO: Make the item and item text centered horizontally and vertically -->
+                <!-- TODO: Make the p tag display a min height (some item names are very long) -->
                 {% for item in items %}
                     <div class="col-md-4 col-sm-6 portfolio-item">
                         <div class="portfolio-caption">
-                            <img src="{% static 'images/poorcrate.png' %}" class="img-responsive">
-                            <h4>{{ item.item_name }}</h4>
-                            <p class="text-muted">{{ item.item_description }}</p>
+                            <img src="{% static 'images/poorcrate.png' %}" class="img-responsive"
+                                 style="display: block; margin: auto">
+                            <h4 style="text-align: center">{{ item.item_name }}</h4>
+                            {% if item.item_description %}
+                                <p class="text-muted" style="text-align: center">{{ item.item_description }}</p>
+                            {% else %}
+                                <p class="text-muted" style="text-align: center">No description</p>
+                            {% endif %}
                         </div>
                     </div>
                 {% endfor %}
