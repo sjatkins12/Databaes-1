@@ -34,13 +34,16 @@ class DiscussionFormView(View):
 def category_list(request):
     cat_subcat_map = {}
     for category in Category.objects.order_by('pk'):
+        changed = False
         for sub_category in SubCategory.objects.filter(category_name__category_name__icontains=category.category_name):
             if cat_subcat_map.get(category) is None:
                 cat_subcat_map[category] = [sub_category]
             else:
                 cat_subcat_map.get(category).append(sub_category)
-            continue
-        cat_subcat_map[category] = []
+            changed = True
+        # Could just be done by checking len
+        if not changed:
+            cat_subcat_map[category] = []
     if len(cat_subcat_map) == 0:
         category_width = 0
     else:

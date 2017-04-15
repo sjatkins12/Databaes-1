@@ -10,7 +10,7 @@ from django.db import models
 def generate_unique_file_name(instance, filename):
     ext_name = filename.split('.')[-1]
     file_name = '{}.{}'.format(uuid.uuid4(), ext_name)
-    return os.path.join('images', filename)
+    return os.path.join('images', file_name)
 
 
 class Supplier(models.Model):
@@ -204,6 +204,7 @@ class Box(models.Model):
     3. Many to Many with Items                      --In 'Item' Model
     4. Many to One with Interest Groups             --In This Model
     """
+    # TODO: Perhaps create a box_name?
     sold_during = models.ForeignKey(SellingCycle, on_delete=models.PROTECT)
     type = models.ForeignKey(InterestGroup, on_delete=models.PROTECT)
 

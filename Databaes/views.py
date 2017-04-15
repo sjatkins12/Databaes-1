@@ -24,6 +24,10 @@ def homepage(request):
 
     # Finds 3 random items to display on the homepage
     curr_selling_cycle = SellingCycle.objects.filter(cycle_date__lte=date.today()).order_by('-cycle_date').first()
+    # If Selling Cycle does not exist, create one
+    if curr_selling_cycle is None:
+        curr_selling_cycle = SellingCycle(cycle_date=datetime(today.year, today.month, 1))
+        curr_selling_cycle.save()
     boxes = Box.objects.filter(sold_during__cycle_date=curr_selling_cycle.cycle_date)
     items = []
     for box in boxes:

@@ -92,4 +92,4 @@ ENV/
 .idea/
 
 # Collectstatic Files
-deployment/
+deployment/static/
