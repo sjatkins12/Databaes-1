@@ -56,7 +56,7 @@
                                     {% for subcategory in subcategory_list %}
                                         <!-- TODO: I can't use the url template because I can't pass query as the parameter -->
                                         <a class="page-scroll btn btn-primary"
-                                           href="category/subcategory/{{ subcategory.subcategory_name }}">
+                                           href="{% url 'subcategory' subcategory_name=subcategory.subcategory_name %}">
                                             {{ subcategory.subcategory_name }}</a>
                                     {% empty %}
                                         <b class="col-lg-12 text-center" style="color: black">No Subcategories for this

@@ -35,7 +35,6 @@
         <div class="container">
             <div class="intro-text">
                 <div class="intro-heading">Interest Groups</div>
-
                 <section id="interestGroup" class="bg-light-gray">
                     <div class="container">
                         <div class="row">
@@ -53,10 +52,13 @@
                                         {% endif %}
                                     </div>
                                     <ul>
-                                    {% for item in interest_items %}
-                                        <li style="color: black;">{{ item.item_name }}</li>
-                                    {% endfor %}
+                                        {% for item in interest_items %}
+                                            <li style="color: black;">{{ item.item_name }}</li>
+                                        {% endfor %}
                                     </ul>
+                                    <a class="page-scroll btn btn-primary"
+                                       href="{% url 'box_discussion' interest_group_name=interest.interest_group_name %}">
+                                        Click here for {{ interest.interest_group_name }}'s discussion</a>
                                 </div>
                                 <!-- TODO: Add a vote button -->
                             {% endfor %}
