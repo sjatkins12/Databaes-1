@@ -94,5 +94,9 @@ ENV/
 # Collectstatic Files
 deployment/static/
 
-# dumpdata
+# python manage.py dumpdata --indent=2 -o data.json
 data.json
+
+# Migrations (Besides __init__.py)
+*/migrations/*_initial.py
+*/migrations/\d

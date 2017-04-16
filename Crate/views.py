@@ -1,9 +1,11 @@
+from datetime import date
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import View
 
 from .forms import ReportForm, DiscussionForm
-from .models import Category, SubCategory, InterestGroup
+from .models import Category, SubCategory, InterestGroup, SellingCycle, Box, Item
 
 
 # Create your views here.
@@ -54,8 +56,19 @@ def category_list(request):
 
 
 def subcategory(request, subcategory_name):
+    # TODO: Merge Voting into this page and display it towards the bottom (redirect to homepage after vote)
     interest_groups = InterestGroup.objects.filter(subcategory_name__subcategory_name__icontains=subcategory_name)
+    curr_selling_cycle = SellingCycle.objects.filter(cycle_date__lte=date.today()).order_by('-cycle_date').first()
+    curr_boxes_sold = Box.objects.filter(sold_during=curr_selling_cycle)
+    interest_group_items = {}
+    for interest_group in interest_groups:
+        interest_group_box = curr_boxes_sold.filter(type=interest_group)
+        for item in Item.objects.filter(contained_in=interest_group_box):
+            if interest_group_items.get(interest_group) is None:
+                interest_group_items[interest_group] = [item]
+            else:
+                interest_group_items[interest_group].append(item)
     return render(request, 'Crate/subcategory.html',
                   {'subcategory': subcategory_name,
-                   'interest_group': interest_groups,
-                   'interest_width': 100 / len(interest_groups)})
+                   'interest_group': interest_group_items,
+                   'interest_width': 100 / len(interest_group_items)})
