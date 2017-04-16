@@ -1,11 +1,12 @@
 from django.contrib.auth import authenticate, login
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from django.http import HttpResponse
 from pinax.stripe.actions import customers
+from registration.backends.default.views import RegistrationView
 
 from account.forms import UserRegistrationForm, UserProfileForm
-from registration.backends.default.views import RegistrationView
+
 
 # Create your views here.
 class UserRegistrationFormView(RegistrationView):
@@ -21,7 +22,6 @@ class UserRegistrationFormView(RegistrationView):
 
     # Process form data
     def post(self, request):
-        
         user_form = self.form_class(request.POST)
         profile_form = self.form2_class(request.POST)
 
@@ -30,7 +30,7 @@ class UserRegistrationFormView(RegistrationView):
             username = user_form.cleaned_data['username']
             password = user_form.cleaned_data['password1']
             user = super().register(user_form)
-            
+
             # Create Stripe Customer upon registration
             customers.create(user=user)
             # Now sort out the UserProfile instance.
@@ -39,9 +39,9 @@ class UserRegistrationFormView(RegistrationView):
             profile = profile_form.save(commit=False)
             profile.user = user
             profile.save()
-    
+
             return redirect('registration_complete')
-        
+
         return render(request, self.template_name, {'user_form': user_form, 'profile_form': profile_form})
 
 
@@ -69,7 +69,8 @@ class LoginView(View):
 def logout_view(self, request):
     logout(request)
     return redirect('homepage')
-    
+
+
 def registration_complete(request):
     template_name = 'registration/registration_complete.html'
     return render(request, template_name)
