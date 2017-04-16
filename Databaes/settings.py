@@ -16,8 +16,14 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'deployment', 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'deployment', 'media')
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.10/howto/static-files/
+
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -44,9 +50,8 @@ INSTALLED_APPS = [
     'account',
     'payment',
     'bootstrap3',
-    'bootstrap_themes',
     'registration',
-    "pinax.stripe"
+    'pinax.stripe',
 ]
 
 MIDDLEWARE = [
@@ -80,7 +85,8 @@ TEMPLATES = [
 ]
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'Crate', 'static'),
 ]
 
 WSGI_APPLICATION = 'Databaes.wsgi.application'
@@ -135,11 +141,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.10/howto/static-files/
-
-STATIC_URL = '/static/'
-MEDIA_URL = '/static/media/'
 
 # Django-registration-redux Variables
 SITE_ID = 1
