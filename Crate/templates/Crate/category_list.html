@@ -42,7 +42,7 @@
                                 <!-- category_width is calculated as being 100 / num_subcategories -->
                                 <div class="col-md-4 col-sm-6 crate-item" style="width: {{ category_width }}%">
                                     <!-- Make the static images automatic -->
-                                    {% if category.category_image.url %}
+                                    {% if category.category_image %}
                                         <img src="{{ category.category_image.url }}">
                                     {% endif %}
                                     <div class="crate-caption">
