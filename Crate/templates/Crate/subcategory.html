@@ -42,7 +42,9 @@
                                 <!-- category_width is calculated as being 100 / num_subcategories -->
                                 <div class="col-md-4 col-sm-6 crate-item" style="width: {{ interest_width }}%">
                                     <!-- Make the static images automatic -->
-                                    <img src="{% static "Crate/1.png" %}">
+                                    {% if interest.interest_group_image %}
+                                        <img src="{{ interest.interest_group_image.url }}">
+                                    {% endif %}
                                     <div class="crate-caption">
                                         <h1 style="color:#000000">{{ interest.interest_group_name }}</h1>
                                         {% if interest.interest_group_description %}
