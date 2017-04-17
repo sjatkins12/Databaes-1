@@ -55,6 +55,10 @@ def category_list(request):
                    'category_width': category_width})
 
 
+def category(request, category_name):
+    return render(request, 'Crate/category.html', {'category': category_name})
+
+
 def subcategory(request, category_name, subcategory_name):
     # TODO: Merge Voting into this page and display it towards the bottom (redirect to homepage after vote)
     interest_groups = InterestGroup.objects.filter(subcategory_name__subcategory_name__icontains=subcategory_name)

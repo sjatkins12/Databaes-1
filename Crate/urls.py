@@ -7,6 +7,8 @@ from . import views
 urlpatterns = [
     # Page that displays the list of categories
     url(r'^$', views.category_list, name='category_list'),
+    # Page that displays the list of subcategories for a category
+    url(r'^(?P<category_name>((([\w]+)\s?)+))/$', views.category, name='category'),
     # Page that displays the list of interest groups pertaining to the subcategory
     url(r'^(?P<category_name>((([\w]+)\s?)+))/(?P<subcategory_name>(([\w]+)\s?)+)/$',
         views.subcategory, name='subcategory'),
