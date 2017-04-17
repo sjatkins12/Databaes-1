@@ -59,7 +59,7 @@
                                         {% endfor %}
                                     </ul>
                                     <a class="page-scroll btn btn-primary"
-                                       href="{% url 'box_discussion' interest_group_name=interest.interest_group_name %}">
+                                       href="{% url 'box_discussion' category_name=category subcategory_name=subcategory interest_group_name=interest.interest_group_name %}">
                                         Click here for {{ interest.interest_group_name }}'s discussion</a>
                                 </div>
                                 <!-- TODO: Add a vote button -->
