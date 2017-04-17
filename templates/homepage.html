@@ -5,6 +5,102 @@
     <title>CrateUrself</title>
 {% endblock %}
 
+{% block style %}
+    <style type="text/css">
+        .counter {
+            background: #222;
+            -moz-box-shadow: inset 0 0 5px #000000;
+            -webkit-box-shadow: inset 0 0 5px #000000;
+            box-shadow: inset 0 0 5px #000000;
+            min-height: 150px;
+            text-align: center;
+        }
+
+        .counter h3 {
+            color: #E5E5E5;
+            font-size: 14px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: lighter;
+            letter-spacing: 1px;
+            padding-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        #countdown {
+            color: #FFFFFF;
+        }
+
+        #countdown span {
+            color: #E5E5E5;
+            font-size: 26px;
+            font-weight: normal;
+            margin-left: 20px;
+            margin-right: 20px;
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        // Script runs immediately when page is loaded
+        window.onload = function () {
+            // set the date we're counting down to
+            var target_date = new Date('{{ cycle_date.year }}, {{ cycle_date.month }}, {{ cycle_date.day }}').getTime();
+
+            // variables for time units
+            var days, hours, minutes, seconds;
+
+            // get tag element
+            var countdown = document.getElementById('countdown');
+
+            // update the tag with id "countdown" every 1 second
+            setInterval(function () {
+
+                // find the amount of "seconds" between now and target
+                var current_date = new Date().getTime();
+                var seconds_left = (target_date - current_date) / 1000;
+
+                // do some time calculations
+                days = parseInt(seconds_left / 86400);
+                seconds_left = seconds_left % 86400;
+
+                hours = parseInt(seconds_left / 3600);
+                seconds_left = seconds_left % 3600;
+
+                minutes = parseInt(seconds_left / 60);
+                seconds = parseInt(seconds_left % 60);
+
+                var display = '';
+
+                var get_display_text = function (num, class_name, singular_unit, plural_unit) {
+                    if (num > 0) {
+                        display += '<span class=' + class_name + '>' + num;
+                        if (num === 1) {
+                            display += ' <b>' + singular_unit + '</b></span>'
+                        } else {
+                            display += ' <b>' + plural_unit + '</b></span>'
+                        }
+                    }
+                };
+
+                get_display_text(days, 'days', 'Day', 'Days');
+                get_display_text(hours, 'hours', 'Hour', 'Hours');
+                get_display_text(minutes, 'minutes', 'Minute', 'Minutes');
+                get_display_text(seconds, 'seconds', 'Second', 'Seconds');
+
+                // format countdown string + set tag value
+                if (display.length === 0) {
+                    display = '<b>Sorry. Voting has ended for this cycle.</b>'
+                }
+                countdown.innerHTML = display;
+
+            }, 1000);
+        }
+    </script>
+{% endblock %}
+
 {% block content %}
     <!-- Navigation -->
     <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
@@ -28,17 +124,11 @@
                         <a class="page-scroll" href="#services">Service</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#Crate">Crate</a>
+                        <a class="page-scroll" href="#crate">Crate</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#explore">Explore</a>
                     </li>
-                    <!-- TODO: Remove this from Nav-Bar -->
-                    <!--
-					<li>
-                        <a class="page-scroll" href="#about">About</a>
-                    </li>
-                    -->
                     <li>
                         <a class="page-scroll" href="#team">Team</a>
                     </li>
@@ -61,8 +151,10 @@
             </div>
         </div>
     </header>
+
     <!-- Services Section -->
-    <section id="services">
+    <!-- ICONS MUST BE 96x112 -->
+    <section id="services" class="bg-light-gray">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -74,20 +166,20 @@
             <div class="row text-center">
                 <div class="col-md-4">
                     <!-- TODO: make the images the same size and resizable  -->
-                    <img src="{% static "media/searchbar.jpg" %}" class="img-responsive img-rounded" alt=""
+                    <img src="{% static 'images/searchbar.jpg' %}" class="img-responsive img-rounded" alt=""
                          style="width:304px;height:200px;margin: 0 auto;">
                     <h4 class="service-heading">Browse</h4>
                     <p class="text-muted">Browse through hundreds of amazing, breathtaking, and spectacular items
-                        handselected by the DataBaes Team.</p>
+                        hand selected by the DataBaes Team.</p>
                 </div>
                 <div class="col-md-4">
-                    <img src="{% static "media/subscribe.jpg" %}" class="img-responsive img-rounded" alt=""
+                    <img src="{% static 'images/subscribe.jpg' %}" class="img-responsive img-rounded" alt=""
                          style="width:304px;height:200px;margin: 0 auto;">
                     <h4 class="service-heading">Subscribe</h4>
                     <p class="text-muted">Subscribe to receive our fantastic products.</p>
                 </div>
                 <div class="col-md-4">
-                    <img src="{% static "media/receivebox.jpg" %}" class="img-responsive img-rounded" alt=""
+                    <img src="{% static 'images/receivebox.jpg' %}" class="img-responsive img-rounded" alt=""
                          style="width:304px;height:200px;margin: 0 auto;">
                     <h4 class="service-heading">Receive</h4>
                     <p class="text-muted">Receive your monthly box today!</p>
@@ -97,48 +189,43 @@
     </section>
 
     <!-- crate Grid Section -->
-    <section id="66iii7776crate" class="bg-light-gray">
+    <!-- IMAGES NEED TO BE  360x260-->
+    <!-- DONT USE PNG THEY LOOK BAD DUE TO NO BORDER-->
+    <section id="crate" >
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Crates</h2>
-                    <h3 class="section-subheading text-muted">We offer three subscription plan.</h3>
+                    <h2 class="section-heading">Monthly Featured Items</h2>
+                    <h3 class="section-subheading text-muted">Vote for Boxes with your favorite items!</h3>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4 col-sm-6 crate-item">
-                    <a href="#crateModal1" class="crate-link" data-toggle="modal">
-                        <img src="{% static "media/poorcrate.png" %}" class="img-responsive">
-                    </a>
-                    <div class="crate-caption">
-                        <h4>Food Stamps</h4>
-                        <p class="text-muted">Surviving on food stamp, but still want cool shit? Look no further this
-                            crate is for you.</p>
+                <!-- TODO: Make the p tag display a min height (some item names are very long) -->
+                {% for item in items %}
+                    <div class="col-md-4 col-sm-6 portfolio-item">
+                        <div class="portfolio-caption">
+                            <img src="{% static 'images/poorcrate.png' %}" class="img-responsive"
+                                 style="display: block; margin: auto">
+                            <h4 style="text-align: center">{{ item.item_name }}</h4>
+                            {% if item.item_description %}
+                                <p class="text-muted" style="text-align: center">{{ item.item_description }}</p>
+                            {% else %}
+                                <p class="text-muted" style="text-align: center">No description</p>
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4 col-sm-6 crate-item">
-                    <a href="#crateModal2" class="crate-link" data-toggle="modal">
-                        <img src="{% static "media/middleclass.png" %}" class="img-responsive">
-                    </a>
-                    <div class="crate-caption">
-                        <h4>Middle Class</h4>
-                        <p class="text-muted">Website Design</p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 crate-item">
-                    <a href="#crateModal3" class="crate-link" data-toggle="modal">
-                        <img src="{% static "media/billgate.png" %}" class="img-responsive">
-                    </a>
-                    <div class="crate-caption">
-                        <h4>Bill Gate</h4>
-                        <p class="text-muted">Website Design</p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 crate-item">
-                </div>
+                {% empty %}
+                    <b class="col-lg-12 text-center">No Featured Monthly Items!</b>
+                {% endfor %}
             </div>
         </div>
     </section>
+
+	    <div class="counter">
+        <h3>VOTING PERIOD ENDS IN:</h3>
+        <div id="countdown">
+        </div><!-- /#Countdown Div -->
+    </div> <!-- /.Counter Div -->
 
     <!-- Explore Section -->
     <section id="explore">
@@ -147,14 +234,15 @@
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Crates filled with random items!</h2>
                     <h3 class="section-subheading text-muted">Dozens of potential crates to choose from.</h3>
-                    <a href="{% url "category_list" %}" class="page-scroll btn btn-xl">Explore the categories</a>
+                    <a href="{% url 'category_list' %}" class="page-scroll btn btn-xl">Explore the categories</a>
                 </div>
             </div>
         </div>
     </section>
 
+
     <!-- Team Section -->
-    <section id="team">
+    <section id="team" class="bg-light-gray">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -163,48 +251,44 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-2 col-sm-offset-1">
                     <div class="team-member">
-                        <img src="{% static "media/steve.png" %}" class="img-responsive img-circle" alt="">
+                        <img src="{% static 'images/Steve.png' %}" class="img-responsive img-circle" alt="">
                         <h4>Steven Tu</h4>
                         <p class="text-muted">Lead Designer</p>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                     <div class="team-member">
-                        <img src="{% static "media/steve.png" %}" class="img-responsive img-circle" alt="">
+                        <img src="{% static 'images/Steve.png' %}" class="img-responsive img-circle" alt="">
                         <h4>Lawrence Qiu</h4>
                         <p class="text-muted">Lead Programmer</p>
                     </div>
                 </div>
-                <div class="col-sm-4">
+				<div class="col-sm-2">
                     <div class="team-member">
-                        <img src="{% static "media/steve.png" %}" class="img-responsive img-circle" alt="">
+                        <img src="{% static 'images/Steve.png' %}" class="img-responsive img-circle" alt="">
+                        <h4>Jesse Rong</h4>
+                        <p class="text-muted">Programmer</p>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="team-member">
+                        <img src="{% static 'images/Steve.png' %}" class="img-responsive img-circle" alt="">
+                        <h4>Sam Atkins</h4>
+                        <p class="text-muted">Programmer</p>
+                    </div>
+                </div>
+				<div class="col-sm-2">
+                    <div class="team-member">
+                        <img src="{% static 'images/Steve.png' %}" class="img-responsive img-circle" alt="">
                         <h4>Kam Wai Li</h4>
                         <p class="text-muted">Data Engineer</p>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="team-member">
-                        <img src="{% static "media/steve.png" %}" class="img-responsive img-circle" alt="">
-                        <h4>Jesse Rong</h4>
-                        <p class="text-muted">Programmer</p>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="team-member">
-                        <img src="{% static "media/steve.png" %}" class="img-responsive img-circle" alt="">
-                        <h4>Sam Atkins</h4>
-                        <p class="text-muted">Programmer</p>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
-
-
 
     <!-- TODO: Do we need a contact section? Could we make this a login/register section or something? -->
     <!-- Contact Section -->
@@ -263,14 +347,6 @@
                     <span class="copyright">Copyright &copy; Databaes 2017</span>
                 </div>
                 <div class="col-md-4">
-                    <ul class="list-inline social-buttons">
-                        <li><a href="#"><i class="fa fa-twitter"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a>
-                        </li>
-                    </ul>
                 </div>
                 <div class="col-md-4">
                     <ul class="list-inline quicklinks">
@@ -303,8 +379,7 @@
                             <div class="modal-body">
                                 <!-- Project Details Go Here -->
                                 <h2>The Food Stamp Crate</h2>
-                                <img src="{% static "media/dank.jpg" %}" class="img-responsive img-rounded" alt=""
-                                     style="width:304px;height:200px;margin: 0 auto;">
+                                <img class="img-responsive img-rounded" src="{% static 'images/dank.jpg' %}" alt="">
                                 <p><strong>Dank</strong></p>
                                 <p>Oh dear, look at you and your empty pocket. That's okay just take out a second
                                     mortgage on your home and subscribe to this dank box.</p>
@@ -338,8 +413,7 @@
                             <div class="modal-body">
                                 <h2>The Middle Class Crate</h2>
                                 <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                <img class="img-responsive img-centered" src="img/crate/startup-framework-preview.png"
-                                     alt="">
+                                <img class="img-responsive img-centered" src="{% static 'images/dank.jpg' %}" alt="">
                                 <p><a href="http://designmodo.com/startup/?u=787">Startup Framework</a> is a website
                                     builder for professionals. Startup Framework contains components and complex blocks
                                     (PSD+HTML Bootstrap themes and templates) which can easily be integrated into almost
@@ -376,7 +450,7 @@
                                 <!-- Project Details Go Here -->
                                 <h2>The Billgate Crate</h2>
                                 <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                <img class="img-responsive img-centered" src="img/crate/treehouse-preview.png" alt="">
+                                <img class="img-responsive img-centered" src="{% static 'images/dank.jpg' %}" alt="">
                                 <p>Treehouse is a free PSD web template built by <a
                                         href="https://www.behance.net/MathavanJaya">Mathavan Jaya</a>. This is bright
                                     and spacious design perfect for people or startup companies looking to showcase

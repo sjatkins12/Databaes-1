@@ -1,8 +1,17 @@
+import os
+import uuid
+
 from django.core.exceptions import ValidationError
 from django.db import models
 
 
 # Create your models here.
+
+def generate_unique_file_name(instance, filename):
+    ext_name = filename.split('.')[-1]
+    file_name = '{}.{}'.format(uuid.uuid4(), ext_name)
+    return os.path.join('images', file_name)
+
 
 class Supplier(models.Model):
     """
@@ -71,11 +80,15 @@ class Category(models.Model):
     """
     Fields-
     1. category_name- Name of the category
-    2. Foreign Keys:
+    2. category_description- Description
+    3. category_image- Image of category
+    4. Foreign Keys:
     Relationships-
     1. One to Many with Subcategory                         --In 'Subcategory' Model
     """
     category_name = models.CharField(max_length=20, primary_key=True)
+    category_description = models.CharField(max_length=100, blank=True)
+    category_image = models.ImageField(upload_to=generate_unique_file_name, blank=True)
 
     def __str__(self):
         return 'Category- {}'.format(self.category_name)
@@ -85,7 +98,9 @@ class SubCategory(models.Model):
     """
     1. subcategory_name- Name of the subcategory
     2. category_name- Name of the category that holds this subcategory
-    3. Foreign Keys:
+    3. subcategory_description- Description
+    4. subcategory_image- Subcategory Image
+    5. Foreign Keys:
     Relationships-
     1. One to Many with Category                            --In This Model
     2. One to Many with Interest Group                      --In This Model
@@ -93,6 +108,8 @@ class SubCategory(models.Model):
     """
     subcategory_name = models.CharField(max_length=30, primary_key=True)
     category_name = models.ForeignKey(Category, on_delete=models.PROTECT)
+    subcategory_description = models.CharField(max_length=100, blank=True)
+    subcategory_image = models.ImageField(upload_to=generate_unique_file_name, blank=True)
 
     def __str__(self):
         return 'Subcategory- {}'.format(self.subcategory_name)
@@ -104,7 +121,7 @@ class InterestGroup(models.Model):
     1. interest_id- Primary key (Identifier) of Interest Group
     2. interest_group_name- Name of the interest_group
     3. subscription_cost- Monthly price of a box
-    4. subcategory_name- Name of subcategory that holds this interest_group
+    4. interest_group_description- Description
     5. Foreign Keys:
     Relationships-
     1. Many to Many with User                           --In 'User' Model
@@ -116,8 +133,10 @@ class InterestGroup(models.Model):
     """
     interest_group_name = models.CharField(max_length=30)
     subscription_cost = models.DecimalField(max_digits=6, decimal_places=2)
+    interest_group_description = models.CharField(max_length=100, blank=True)
     subcategory_name = models.ForeignKey(SubCategory, on_delete=models.PROTECT)
     have = models.ManyToManyField('Crate.Item', blank=True)
+    interest_group_image = models.ImageField(upload_to=generate_unique_file_name, blank=True)
 
     def __str__(self):
         return 'Interest Group- {}'.format(self.interest_group_name)
@@ -185,6 +204,7 @@ class Box(models.Model):
     3. Many to Many with Items                      --In 'Item' Model
     4. Many to One with Interest Groups             --In This Model
     """
+    # TODO: Perhaps create a box_name?
     sold_during = models.ForeignKey(SellingCycle, on_delete=models.PROTECT)
     type = models.ForeignKey(InterestGroup, on_delete=models.PROTECT)
 
