@@ -20,13 +20,14 @@ from django.contrib import admin
 
 #from account.views import UserRegistrationFormView, LoginView, logout_view
 from . import views
+from user_profile.views import SignupView
 
 urlpatterns = [
     url(r'^$', views.homepage, name='homepage'),
     url(r'^$', views.homepage, name='home'),
     url(r'^admin/', admin.site.urls),
     url(r'^crate/', include('Crate.urls')),
-    url(r'^payment/', include('payment.urls')),
+    url(r"^account/signup/$", SignupView.as_view(), name="account_signup"),
     url(r"^account/", include("account.urls")),
     url(r'^payments/', include('pinax.stripe.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
