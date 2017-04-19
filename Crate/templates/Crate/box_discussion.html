@@ -20,21 +20,25 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right" ;>
+                <ul class="nav navbar-nav navbar-right">
+					{% if user.is_authenticated %}
                     <li role="presentation" class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
                            aria-expanded="false">
                             Account <span class="caret"></span></a>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <li style=>
-                                <a style="color:black" href="pathtomanagesubscription">Manage Subscriptions</a>
+                                <a style="color:black" href="/account/settings">Account Settings</a>
                             </li>
-                            <li style=>
-                                <a style="color:black" href="pathtoaccountsettings">Account Settings</a>
+							<li style=>
+                                <a style="color:black" href="/payments/subscriptions">Manage Subscriptions</a>
+                            </li>
+							<li style=>
+                                <a style="color:black" href="/account/logout">Logout</a>
                             </li>
                         </ul>
                     </li>
-
+					{% else %}
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span
                                 class="caret"></span></a>
@@ -42,14 +46,15 @@
                             <li>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <form class="form" role="form" method="post" action="login"
+                                        <form class="form" role="form" method="post" action="/account/login/"
                                               accept-charset="UTF-8" id="login-nav">
+											  {% csrf_token %}
                                             <div class="form-group">
                                                 <input type="text" class="form-control" name="username"
                                                        placeholder="Username">
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" name="password"
+                                                <input type="password" class="form-control" name="password"
                                                        placeholder="Password">
                                             </div>
                                             <div class="form-group">
@@ -58,14 +63,15 @@
                                         </form>
                                     </div>
                                     <div class="bottom text-center" style="color:#000000;">
-                                        New? <a href="/register">
-                                        <b style="color:#FFFFFF;">Sign up here.</b>
+                                        New? <a href="/account/signup">
+                                        <b style="color:#FFFFFF;"> Sign up here.</b>
                                     </a>
                                     </div>
                                 </div>
                             </li>
                         </ul>
                     </li>
+					{% endif %}
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
