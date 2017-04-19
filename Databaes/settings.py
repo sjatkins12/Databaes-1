@@ -92,7 +92,6 @@ TEMPLATES = [
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'Crate', 'static'),
 ]
 
 WSGI_APPLICATION = 'Databaes.wsgi.application'
