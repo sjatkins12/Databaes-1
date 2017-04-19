@@ -1,7 +1,7 @@
 from datetime import date
 
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_list_or_404
 from django.views.generic import View
 
 from .forms import ReportForm, DiscussionForm
@@ -35,9 +35,9 @@ class DiscussionFormView(View):
 
 def category_list(request):
     category_subcategory_map = {}
-    for category in Category.objects.order_by('pk'):
+    for category in get_list_or_404(Category):
         changed = False
-        for sub_category in SubCategory.objects.filter(category_name__category_name__icontains=category.category_name):
+        for sub_category in SubCategory.objects.filter(category__category_name=category.category_name):
             if category_subcategory_map.get(category) is None:
                 category_subcategory_map[category] = [sub_category]
             else:
@@ -57,7 +57,7 @@ def category_list(request):
 
 def category(request, category_name):
     subcategory_interest_map = {}
-    for subcategory in SubCategory.objects.filter(category_name__category_name=category_name):
+    for subcategory in get_list_or_404(SubCategory, category__category_name=category_name):
         changed = False
         for interest_group in InterestGroup.objects.filter(subcategory_name=subcategory):
             if subcategory_interest_map.get(subcategory) is None:
@@ -79,7 +79,7 @@ def category(request, category_name):
 
 def subcategory(request, category_name, subcategory_name):
     # TODO: Merge Voting into this page and display it towards the bottom (redirect to homepage after vote)
-    interest_groups = InterestGroup.objects.filter(subcategory_name__subcategory_name__icontains=subcategory_name)
+    interest_groups = get_list_or_404(InterestGroup, subcategory__subcategory_name=subcategory_name)
     curr_selling_cycle = SellingCycle.objects.filter(cycle_date__lte=date.today()).order_by('-cycle_date').first()
     curr_boxes_sold = Box.objects.filter(sold_during=curr_selling_cycle)
     interest_group_items = {}
