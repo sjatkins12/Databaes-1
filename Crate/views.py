@@ -55,7 +55,7 @@ def category_list(request):
                    'category_width': category_width})
 
 
-def category(request, category_name):
+def subcategory_list(request, category_name):
     subcategory_interest_map = {}
     for subcategory in get_list_or_404(SubCategory, category__category_name=category_name):
         changed = False
@@ -71,13 +71,13 @@ def category(request, category_name):
         subcategory_width = 0
     else:
         subcategory_width = 100 / len(subcategory_interest_map)
-    return render(request, 'Crate/category.html',
+    return render(request, 'Crate/subcategory_list.html',
                   {'category': category_name,
                    'subcategory': subcategory_interest_map,
                    'subcategory_width': subcategory_width})
 
 
-def subcategory(request, category_name, subcategory_name):
+def interest_group_list(request, category_name, subcategory_name):
     # TODO: Merge Voting into this page and display it towards the bottom (redirect to homepage after vote)
     interest_groups = get_list_or_404(InterestGroup, subcategory__subcategory_name=subcategory_name)
     curr_selling_cycle = SellingCycle.objects.filter(cycle_date__lte=date.today()).order_by('-cycle_date').first()
@@ -94,7 +94,7 @@ def subcategory(request, category_name, subcategory_name):
         interest_width = 0
     else:
         interest_width = 100 / len(interest_group_items)
-    return render(request, 'Crate/subcategory.html',
+    return render(request, 'Crate/interest_group_list.html',
                   {'category': category_name,
                    'subcategory': subcategory_name,
                    'interest_group': interest_group_items,
