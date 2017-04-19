@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    <title>{{ subcategory }}</title>
+    <title>{{ subcategory.subcategory_name }}</title>
 {% endblock %}
 
 {% block content %}
@@ -76,33 +76,28 @@
     <header>
         <div class="container">
             <div class="intro-text">
-                <div class="intro-heading">Interest Groups</div>
+                <div class="intro-heading">Subcategories</div>
                 <section id="interestGroup" class="bg-light-gray">
                     <div class="container">
                         <div class="row">
-                            {% for interest, interest_items in interest_group.items %}
+                            {% for subcategory, interest_group in subcategory.items %}
                                 <!-- category_width is calculated as being 100 / num_subcategories -->
-                                <div class="col-md-4 col-sm-6 crate-item" style="width: {{ interest_width }}%">
+                                <div class="col-md-4 col-sm-6 crate-item" style="width: {{ subcategory_width }}%">
                                     <!-- Make the static images automatic -->
-                                    {% if interest.interest_group_image %}
-                                        <img src="{{ interest.interest_group_image.url }}">
+                                    {% if subcategory.subcategory_image %}
+                                        <img src="{{ subcategory.subcategory_image }}">
                                     {% endif %}
                                     <div class="crate-caption">
-                                        <h1 style="color:#000000">{{ interest.interest_group_name }}</h1>
-                                        {% if interest.interest_group_description %}
-                                            <p class="text-muted">{{ interest.interest_group_description }}</p>
+                                        <h1 style="color:#000000">{{ subcategory.subcategory_name }}</h1>
+                                        {% if subcategory_subcategory_description %}
+                                            <p class="text-muted">{{ subcategory.subcategory_description }}</p>
                                         {% else %}
                                             <p class="text-muted">No description</p>
                                         {% endif %}
                                     </div>
-                                    <ul>
-                                        {% for item in interest_items %}
-                                            <li style="color: black;">{{ item.item_name }}</li>
-                                        {% endfor %}
-                                    </ul>
                                     <a class="page-scroll btn btn-primary"
-                                       href="{% url 'box_discussion' category_name=category subcategory_name=subcategory interest_group_name=interest.interest_group_name %}">
-                                        Click here for {{ interest.interest_group_name }}'s discussion</a>
+                                       href="{% url 'subcategory' category_name=category subcategory_name=subcategory.subcategory_name %}">
+                                        Click here for {{ subcategory.subcategory_name }}'s Interest Groups</a>
                                 </div>
                             {% endfor %}
                         </div>
@@ -125,7 +120,6 @@
                         </li>
                         <li><a href="https://twitter.com/?request_context=signup"><i class="fa fa-twitter"></i></a>
                         </li>
-
                     </ul>
                 </div>
                 <div class="col-md-4">

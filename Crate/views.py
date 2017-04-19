@@ -56,7 +56,25 @@ def category_list(request):
 
 
 def category(request, category_name):
-    return render(request, 'Crate/category.html', {'category': category_name})
+    subcategory_interest_map = {}
+    for subcategory in SubCategory.objects.filter(category_name__category_name=category_name):
+        changed = False
+        for interest_group in InterestGroup.objects.filter(subcategory_name=subcategory):
+            if subcategory_interest_map.get(subcategory) is None:
+                subcategory_interest_map[subcategory] = [interest_group]
+            else:
+                subcategory_interest_map[subcategory].append(interest_group)
+            changed = True
+        if not changed:
+            subcategory_interest_map[subcategory] = []
+    if len(subcategory_interest_map) == 0:
+        subcategory_width = 0
+    else:
+        subcategory_width = 100 / len(subcategory_interest_map)
+    return render(request, 'Crate/category.html',
+                  {'category': category_name,
+                   'subcategory': subcategory_interest_map,
+                   'subcategory_width': subcategory_width})
 
 
 def subcategory(request, category_name, subcategory_name):
@@ -72,8 +90,12 @@ def subcategory(request, category_name, subcategory_name):
                 interest_group_items[interest_group] = [item]
             else:
                 interest_group_items[interest_group].append(item)
+    if len(interest_group_items) == 0:
+        interest_width = 0
+    else:
+        interest_width = 100 / len(interest_group_items)
     return render(request, 'Crate/subcategory.html',
                   {'category': category_name,
                    'subcategory': subcategory_name,
                    'interest_group': interest_group_items,
-                   'interest_width': 100 / len(interest_group_items)})
+                   'interest_width': interest_width})
