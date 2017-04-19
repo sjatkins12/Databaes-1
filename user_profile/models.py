@@ -17,7 +17,7 @@ class Report(models.Model):
     """
     report = models.CharField(max_length=500)
     box_id = models.ForeignKey('Crate.Box', on_delete=models.PROTECT)
-    user_id = models.ForeignKey('account.UserProfile', on_delete=models.PROTECT)
+    user_id = models.ForeignKey('user_profile.UserProfile', on_delete=models.PROTECT)
 
     # This guarantees that box_id and user_id are unique (act as primary keys)
     class Meta:
@@ -43,7 +43,7 @@ class Subscription(models.Model):
     start_date = models.DateField()
     end_date = models.DateField(blank=True)
     interest_group_id = models.ForeignKey('Crate.InterestGroup', on_delete=models.PROTECT)
-    user_id = models.ForeignKey('account.UserProfile', on_delete=models.PROTECT)
+    user_id = models.ForeignKey('user_profile.UserProfile', on_delete=models.PROTECT)
 
     # This guarantees that box_id and user_id are unique (act as primary keys)
     class Meta:

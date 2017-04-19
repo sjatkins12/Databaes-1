@@ -12,7 +12,7 @@
             -moz-box-shadow: inset 0 0 5px #000000;
             -webkit-box-shadow: inset 0 0 5px #000000;
             box-shadow: inset 0 0 5px #000000;
-            min-height: 150px;
+            min-height: 125px;
             text-align: center;
         }
 
@@ -99,7 +99,12 @@
             }, 1000);
         }
     </script>
+
+
 {% endblock %}
+
+
+
 
 {% block content %}
     <!-- Navigation -->
@@ -116,12 +121,13 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right" ;>
                     <li class="hidden">
                         <a href="#page-top"></a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#services">Service</a>
+
                     </li>
                     <li>
                         <a class="page-scroll" href="#crate">Crate</a>
@@ -135,12 +141,45 @@
                     <li>
                         <a class="page-scroll" href="#contact">Contact</a>
                     </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span
+                                class="caret"></span></a>
+                        <ul id="login-dp" class="dropdown-menu">
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form class="form" role="form" method="post" action="login"
+                                              accept-charset="UTF-8" id="login-nav">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="username"
+                                                       placeholder="Username">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="password"
+                                                       placeholder="Password">
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="bottom text-center" style="color:#000000;">
+                                        New? <a href="/register">
+                                        <b style="color:#fed136;">Sign up here.</b>
+                                    </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container-fluid -->
     </nav>
+
+
     <!-- Header -->
     <header>
         <div class="container" id="page-top">
@@ -153,7 +192,7 @@
     </header>
 
     <!-- Services Section -->
-    <!-- ICONS MUST BE 96x112 -->
+    <!-- ICONS MUST BE 96x112 |  Kam - shouldnt matter as long as container is the same -->
     <section id="services" class="bg-light-gray">
         <div class="container">
             <div class="row">
@@ -166,20 +205,20 @@
             <div class="row text-center">
                 <div class="col-md-4">
                     <!-- TODO: make the images the same size and resizable  -->
-                    <img src="{% static 'images/searchbar.jpg' %}" class="img-responsive img-rounded" alt=""
+                    <img src="{% static 'images/test123.png' %}" class="img-responsive img-rounded" alt=""
                          style="width:304px;height:200px;margin: 0 auto;">
                     <h4 class="service-heading">Browse</h4>
                     <p class="text-muted">Browse through hundreds of amazing, breathtaking, and spectacular items
                         hand selected by the DataBaes Team.</p>
                 </div>
                 <div class="col-md-4">
-                    <img src="{% static 'images/subscribe.jpg' %}" class="img-responsive img-rounded" alt=""
+                    <img src="{% static 'images/Subcribe.png' %}" class="img-responsive img-rounded" alt=""
                          style="width:304px;height:200px;margin: 0 auto;">
                     <h4 class="service-heading">Subscribe</h4>
                     <p class="text-muted">Subscribe to receive our fantastic products.</p>
                 </div>
                 <div class="col-md-4">
-                    <img src="{% static 'images/receivebox.jpg' %}" class="img-responsive img-rounded" alt=""
+                    <img src="{% static 'images/deliver.png' %}" class="img-responsive img-rounded" alt=""
                          style="width:304px;height:200px;margin: 0 auto;">
                     <h4 class="service-heading">Receive</h4>
                     <p class="text-muted">Receive your monthly box today!</p>
@@ -191,7 +230,9 @@
     <!-- crate Grid Section -->
     <!-- IMAGES NEED TO BE  360x260-->
     <!-- DONT USE PNG THEY LOOK BAD DUE TO NO BORDER-->
-    <section id="crate" >
+
+
+    <section id="crate">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -220,15 +261,15 @@
             </div>
         </div>
     </section>
-
-	    <div class="counter">
+    <!-- STOP MOVING THIS KAM -->
+    <div class="counter">
         <h3>VOTING PERIOD ENDS IN:</h3>
         <div id="countdown">
         </div><!-- /#Countdown Div -->
     </div> <!-- /.Counter Div -->
 
     <!-- Explore Section -->
-    <section id="explore">
+    <section id="explore" class="bg-light-gray">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -242,7 +283,7 @@
 
 
     <!-- Team Section -->
-    <section id="team" class="bg-light-gray">
+    <section id="team">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -265,7 +306,7 @@
                         <p class="text-muted">Lead Programmer</p>
                     </div>
                 </div>
-				<div class="col-sm-2">
+                <div class="col-sm-2">
                     <div class="team-member">
                         <img src="{% static 'images/Steve.png' %}" class="img-responsive img-circle" alt="">
                         <h4>Jesse Rong</h4>
@@ -279,7 +320,7 @@
                         <p class="text-muted">Programmer</p>
                     </div>
                 </div>
-				<div class="col-sm-2">
+                <div class="col-sm-2">
                     <div class="team-member">
                         <img src="{% static 'images/Steve.png' %}" class="img-responsive img-circle" alt="">
                         <h4>Kam Wai Li</h4>
@@ -347,6 +388,14 @@
                     <span class="copyright">Copyright &copy; Databaes 2017</span>
                 </div>
                 <div class="col-md-4">
+                    <ul class="list-inline social-buttons">
+                        <li><a href="https://www.facebook.com/CrateUrself-1587285857978476/"><i
+                                class="fa fa-facebook"></i></a>
+                        </li>
+                        <li><a href="https://twitter.com/CrateUrself"><i class="fa fa-twitter"></i></a>
+                        </li>
+
+                    </ul>
                 </div>
                 <div class="col-md-4">
                     <ul class="list-inline quicklinks">
@@ -359,6 +408,7 @@
             </div>
         </div>
     </footer>
+
 
     <!-- crate Modals -->
     <!-- Use the modals below to showcase details about your crate projects! -->
