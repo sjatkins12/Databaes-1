@@ -2,9 +2,141 @@
 {% load static %}
 
 {% block title %}
-    <title>CrateUrself</title>
+    <title>{{ subcategory }}</title>
 {% endblock %}
 
 {% block content %}
-<p>There is nothing</p>
+    <!-- Navigation -->
+    <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="/">CrateUrself</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                           aria-expanded="false">
+                            Account <span class="caret"></span></a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li style=>
+                                <a style="color:black" href="pathtomanagesubscription">Manage Subscriptions</a>
+                            </li>
+                            <li style=>
+                                <a style="color:black" href="pathtoaccountsettings">Account Settings</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span
+                                class="caret"></span></a>
+                        <ul id="login-dp" class="dropdown-menu">
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form class="form" role="form" method="post" action="login"
+                                              accept-charset="UTF-8" id="login-nav">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="username"
+                                                       placeholder="Username">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="password"
+                                                       placeholder="Password">
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="bottom text-center" style="color:#000000;">
+                                        New? <a href="/register">
+                                        <b style="color:#FFFFFF;">Sign up here.</b>
+                                    </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="intro-text">
+                <div class="intro-heading">Interest Groups</div>
+                <section id="interestGroup" class="bg-light-gray">
+                    <div class="container">
+                        <div class="row">
+                            {% for interest, interest_items in interest_group.items %}
+                                <!-- category_width is calculated as being 100 / num_subcategories -->
+                                <div class="col-md-4 col-sm-6 crate-item" style="width: {{ interest_width }}%">
+                                    <!-- Make the static images automatic -->
+                                    {% if interest.interest_group_image %}
+                                        <img src="{{ interest.interest_group_image.url }}">
+                                    {% endif %}
+                                    <div class="crate-caption">
+                                        <h1 style="color:#000000">{{ interest.interest_group_name }}</h1>
+                                        {% if interest.interest_group_description %}
+                                            <p class="text-muted">{{ interest.interest_group_description }}</p>
+                                        {% else %}
+                                            <p class="text-muted">No description</p>
+                                        {% endif %}
+                                    </div>
+                                    <ul>
+                                        {% for item in interest_items %}
+                                            <li style="color: black;">{{ item.item_name }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    <a class="page-scroll btn btn-primary"
+                                       href="{% url 'box_discussion' category_name=category subcategory_name=subcategory interest_group_name=interest.interest_group_name %}">
+                                        Click here for {{ interest.interest_group_name }}'s discussion</a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </header>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="copyright">Copyright &copy; Databaes 2017</span>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline social-buttons">
+                        <li><a href="https://www.facebook.com/CrateUrself-1587285857978476/"><i
+                                class="fa fa-facebook"></i></a>
+                        </li>
+                        <li><a href="https://twitter.com/?request_context=signup"><i class="fa fa-twitter"></i></a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline quicklinks">
+                        <li><a href="#">Privacy Policy</a>
+                        </li>
+                        <li><a href="#">Terms of Use</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
 {% endblock %}
