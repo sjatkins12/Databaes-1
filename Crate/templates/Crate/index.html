@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    <title>{{ interest_group_name }} Discussion</title>
+{% endblock %}
+
+{% block content %}
+    <!-- Navigation -->
+    <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="/">CrateUrself</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                        <li role="presentation" class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                               aria-haspopup="true"
+                               aria-expanded="false">
+                                Account <span class="caret"></span></a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li style=>
+                                    <a style="color:black" href="/account/settings">Account Settings</a>
+                                </li>
+                                <li style=>
+                                    <a style="color:black" href="/payments/subscriptions">Manage Subscriptions</a>
+                                </li>
+                                <li style=>
+                                    <a style="color:black" href="/account/logout">Logout</a>
+                                </li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span
+                                    class="caret"></span></a>
+                            <ul id="login-dp" class="dropdown-menu">
+                                <li>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <form class="form" role="form" method="post" action="/account/login/"
+                                                  accept-charset="UTF-8" id="login-nav">
+                                                {% csrf_token %}
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" name="username"
+                                                           placeholder="Username">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="password" class="form-control" name="password"
+                                                           placeholder="Password">
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-primary btn-block">Sign in
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="bottom text-center" style="color:#000000;">
+                                            New? <a href="/account/signup">
+                                            <b style="color:#FFFFFF;"> Sign up here.</b>
+                                        </a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <header>
+        <!-- main -->
+        <div class="main main-agileinfo">
+            <div class="intro-text">
+                <div class="intro-heading">Discussion</div>
+                <section id="crate" class="bg-light-gray">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6 crate-item">
+                                <div class="col-md-6 col-sm-8 crate-item">
+                                    <div class="col-md-10 col-sm-10 crate-item">
+                                        <h3 style="color: black">4513</h3>
+                                        <p style="color: black">Followers</p>
+                                    </div>
+                                    <div>
+                                        <h3 style="color: black">25</h3>
+                                        <p style="color: black">Following</p>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="crate-caption">
+                            <h2>Subscribe For Our <br>Latest Updates</h2>
+                            <p>And Get <span>10% Off</span> for Shopping! </p>
+                            <form action="#" method="post">
+                                <input type="email" name="email" placeholder="Enter your Email..." required="">
+                                <input type="submit" value="Subscribe">
+                            </form>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear"></div>
+                        <a class="page-scroll btn btn-primary"
+                           href="{% url 'box_item_vote' 56 %}">
+                            Vote on Box 56's items
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <span class="copyright">Copyright &copy; Databaes 2017</span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <ul class="list-inline social-buttons">
+                            <li><a href="https://www.facebook.com/CrateUrself-1587285857978476/"><i
+                                    class="fa fa-facebook"></i></a>
+                            </li>
+                            <li><a href="https://twitter.com/?request_context=signup"><i class="fa fa-twitter"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <ul class="list-inline quicklinks">
+                            <li><a href="#">Privacy Policy</a>
+                            </li>
+                            <li><a href="#">Terms of Use</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </header>
+{% endblock %}

@@ -13,7 +13,9 @@ from .models import Category, SubCategory, InterestGroup, SellingCycle, Box, Ite
 class BoxVoteFormView(View):
     def get(self, request, *args, **kwargs):
         form = ReportForm()
-        return render(request, 'Crate/box_vote.html', {'box_id': kwargs['box_id'], 'form': form})
+        return render(request, 'Crate/box_vote.html',
+                      {'box_id': kwargs['box_id'],
+                       'form': form})
 
     def post(self, request, *args, **kwargs):
         form = ReportForm(request.POST)
@@ -24,8 +26,10 @@ class BoxVoteFormView(View):
 class DiscussionFormView(View):
     def get(self, request, *args, **kwargs):
         form = DiscussionForm()
-        return render(request, 'Crate/box_discussion.html',
-                      {'interest_group': kwargs['interest_group_name'], 'form': form})
+
+        return render(request, 'Crate/index.html',
+                      {'interest_group_name': kwargs['interest_group_name'],
+                       'form': form})
 
     def post(self, request, *args, **kwargs):
         form = DiscussionForm(request.POST)
@@ -78,7 +82,6 @@ def subcategory_list(request, category_name):
 
 
 def interest_group_list(request, category_name, subcategory_name):
-    # TODO: Merge Voting into this page and display it towards the bottom (redirect to homepage after vote)
     interest_groups = get_list_or_404(InterestGroup, subcategory__subcategory_name=subcategory_name)
     curr_selling_cycle = SellingCycle.objects.filter(cycle_date__lte=date.today()).order_by('-cycle_date').first()
     curr_boxes_sold = Box.objects.filter(sold_during=curr_selling_cycle)
