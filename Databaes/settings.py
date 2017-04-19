@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'account',
     'pinax_theme_bootstrap',
     'bootstrapform',
+    'user_profile',
 ]
 
 MIDDLEWARE = [
