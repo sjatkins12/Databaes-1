@@ -85,7 +85,7 @@
                                 <div class="col-md-4 col-sm-6 crate-item" style="width: {{ subcategory_width }}%">
                                     <!-- Make the static images automatic -->
                                     {% if subcategory.subcategory_image %}
-                                        <img src="{{ subcategory.subcategory_image }}">
+                                        <img src="{{ subcategory.subcategory_image.url }}">
                                     {% endif %}
                                     <div class="crate-caption">
                                         <h1 style="color:#000000">{{ subcategory.subcategory_name }}</h1>
