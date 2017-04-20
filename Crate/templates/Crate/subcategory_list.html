@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    <title>{{ interest_group_name }}</title>
+    <title>{{ subcategory.subcategory_name }}</title>
 {% endblock %}
 
 {% block content %}
@@ -23,15 +23,6 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a class="page-scroll" href="{% url 'category_list' %}">Category</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="{% url 'subcategory_list' category_name=category_name %}">Subcategory</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="{% url 'interest_group_list' category_name=category_name subcategory_name=subcategory_name %}">Interest Group</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#discussion">Discussion</a>
                     </li>
                     {% if user.is_authenticated %}
                         <li role="presentation" class="dropdown">
@@ -92,34 +83,34 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
-
+    <!-- Header -->
     <header>
         <div class="container">
             <div class="intro-text">
-                <div class="intro-heading">{{ interest_group_name }}</div>
-                <section id="crate" class="bg-light-gray">
+                <div class="intro-heading">Subcategories</div>
+                <section id="interestGroup" class="bg-light-gray">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-4 crate-item" style="float: left">
-                                <h3 style="color: black">4513</h3>
-                                <p style="color: black">Followers</p>
-                                <h3 style="color: black">25</h3>
-                                <p style="color: black">Following</p>
-                            </div>
-                            <div class="col-md-4 crate-item">
-                                <h2 style="color: black">Subscribe to vote on this month's items</h2>
-                                <p style="color: black">Purchase now for ${{ cost }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="container">
-                        <div class="row">
-                            <div class="crate-caption">
-                                <a class="page-scroll btn btn-primary" href="{% url 'box_item_vote' 56 %}">
-                                    Vote on Box 56's items
-                                </a>
-                            </div>
+                            {% for subcategory, interest_group in subcategory.items %}
+                                <!-- category_width is calculated as being 100 / num_subcategories -->
+                                <div class="col-md-4 col-sm-6 crate-item" style="width: {{ subcategory_width }}%">
+                                    <!-- Make the static images automatic -->
+                                    {% if subcategory.subcategory_image %}
+                                        <img src="{{ subcategory.subcategory_image.url }}">
+                                    {% endif %}
+                                    <div class="crate-caption">
+                                        <h1 style="color:#000000">{{ subcategory.subcategory_name }}</h1>
+                                        {% if subcategory.subcategory_description %}
+                                            <p class="text-muted">{{ subcategory.subcategory_description }}</p>
+                                        {% else %}
+                                            <p class="text-muted">No description</p>
+                                        {% endif %}
+                                    </div>
+                                    <a class="page-scroll btn btn-primary"
+                                       href="{% url 'interest_group_list' category_name=category_name subcategory_name=subcategory.subcategory_name %}">
+                                        Click here for {{ subcategory.subcategory_name }}'s Interest Groups</a>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </section>
@@ -127,32 +118,12 @@
         </div>
     </header>
 
-    <section id="discussion" class="bg-light-gray">
-        <div class="container">
-            <div class="row">
-                <p>There are currently no discussions.</p>
-            </div>
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4">
-                    <form role="form" method="post" class="form-horizontal">
-                        {% csrf_token %}
-                        {{ form }}
-                        <button type="submit" class="btn btn-primary" style="width: 100%">
-                            Submit
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <footer>
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
                     <span class="copyright">Copyright &copy; Databaes 2017</span>
                 </div>
-
                 <div class="col-md-4">
                     <ul class="list-inline social-buttons">
                         <li><a href="https://www.facebook.com/CrateUrself-1587285857978476/"><i

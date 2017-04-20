@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    <title>{{ interest_group_name }}</title>
+    <title>{{ subcategory_name }}</title>
 {% endblock %}
 
 {% block content %}
@@ -26,12 +26,6 @@
                     </li>
                     <li>
                         <a class="page-scroll" href="{% url 'subcategory_list' category_name=category_name %}">Subcategory</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="{% url 'interest_group_list' category_name=category_name subcategory_name=subcategory_name %}">Interest Group</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#discussion">Discussion</a>
                     </li>
                     {% if user.is_authenticated %}
                         <li role="presentation" class="dropdown">
@@ -92,34 +86,40 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
-
+    <!-- Header -->
     <header>
         <div class="container">
             <div class="intro-text">
-                <div class="intro-heading">{{ interest_group_name }}</div>
-                <section id="crate" class="bg-light-gray">
+                <div class="intro-heading">Interest Groups</div>
+                <section id="interestGroup" class="bg-light-gray">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-4 crate-item" style="float: left">
-                                <h3 style="color: black">4513</h3>
-                                <p style="color: black">Followers</p>
-                                <h3 style="color: black">25</h3>
-                                <p style="color: black">Following</p>
-                            </div>
-                            <div class="col-md-4 crate-item">
-                                <h2 style="color: black">Subscribe to vote on this month's items</h2>
-                                <p style="color: black">Purchase now for ${{ cost }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="container">
-                        <div class="row">
-                            <div class="crate-caption">
-                                <a class="page-scroll btn btn-primary" href="{% url 'box_item_vote' 56 %}">
-                                    Vote on Box 56's items
-                                </a>
-                            </div>
+                            {% for interest, interest_items in interest_group.items %}
+                                <!-- category_width is calculated as being 100 / num_subcategories -->
+                                <div class="col-md-4 col-sm-6 crate-item" style="width: {{ interest_width }}%">
+                                    <!-- Make the static images automatic -->
+                                    {% if interest.interest_group_image %}
+                                        <img src="{{ interest.interest_group_image.url }}">
+                                    {% endif %}
+                                    <div class="crate-caption">
+                                        <h1 style="color:#000000">{{ interest.interest_group_name }}</h1>
+                                        {% if interest.interest_group_description %}
+                                            <p class="text-muted">{{ interest.interest_group_description }}</p>
+                                        {% else %}
+                                            <p class="text-muted">No description</p>
+                                        {% endif %}
+                                    </div>
+                                    <ul>
+                                        {% for item in interest_items %}
+                                            <li style="color: black;">{{ item.item_name }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    <a class="page-scroll btn btn-primary"
+                                       href="{% url 'box_discussion' category_name=category_name subcategory_name=subcategory_name interest_group_name=interest.interest_group_name %}">
+                                        Click here for {{ interest.interest_group_name }}'s discussion</a>
+                                </div>
+                                <!-- TODO: Add a vote button -->
+                            {% endfor %}
                         </div>
                     </div>
                 </section>
@@ -127,32 +127,12 @@
         </div>
     </header>
 
-    <section id="discussion" class="bg-light-gray">
-        <div class="container">
-            <div class="row">
-                <p>There are currently no discussions.</p>
-            </div>
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4">
-                    <form role="form" method="post" class="form-horizontal">
-                        {% csrf_token %}
-                        {{ form }}
-                        <button type="submit" class="btn btn-primary" style="width: 100%">
-                            Submit
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <footer>
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
                     <span class="copyright">Copyright &copy; Databaes 2017</span>
                 </div>
-
                 <div class="col-md-4">
                     <ul class="list-inline social-buttons">
                         <li><a href="https://www.facebook.com/CrateUrself-1587285857978476/"><i

@@ -4,7 +4,7 @@ from random import randint
 
 from django.shortcuts import render
 
-from Crate.models import SellingCycle, Box, Item
+from Crate.models import InterestGroup
 
 
 def homepage(request):
@@ -22,24 +22,15 @@ def homepage(request):
         _, num_days = monthrange(year, next_month)
         end_of_month = datetime(year, next_month, num_days)
 
-    # Finds 3 random items to display on the homepage
-    curr_selling_cycle = SellingCycle.objects.filter(cycle_date__lte=date.today()).order_by('-cycle_date').first()
-    # If Selling Cycle does not exist, create one
-    if curr_selling_cycle is None:
-        curr_selling_cycle = SellingCycle(cycle_date=datetime(today.year, today.month, 1))
-        curr_selling_cycle.save()
-    boxes = Box.objects.filter(sold_during__cycle_date=curr_selling_cycle.cycle_date)
-    items = []
-    for box in boxes:
-        for item in Item.objects.filter(contained_in=box):
-            items.append(item)
-    display_items = []
-    # Checks to make sure we have items in our database
-    if len(items) > 0:
+    # Must use .all() to get an iterate (be able to convert to list)
+    list_interest_groups = list(InterestGroup.objects.all())
+    chosen_interest_groups = []
+    if len(list_interest_groups) > 0:
         for _ in range(3):
-            num = randint(0, len(items) - 1)
-            chosen_item = items[num]
-            display_items.append(chosen_item)
-            items.remove(chosen_item)
+            num = randint(0, len(list_interest_groups) - 1)
+            chosen_interest_group = list_interest_groups[num]
+            chosen_interest_groups.append(chosen_interest_group)
+            list_interest_groups.remove(chosen_interest_group)
+
     return render(request, 'homepage.html', {'cycle_date': end_of_month,
-                                             'items': display_items})
+                                             'interest_groups': chosen_interest_groups})
