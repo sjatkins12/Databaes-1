@@ -1,47 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="">
-		<meta name="author" content="">
-		
-		{% load static %}
-		<!-- Bootstrap Core CSS -->
-		<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-		
-		<!-- Theme CSS -->
-		<link href="{% static 'css/agency.min.css' %}" rel="stylesheet">
-		
-		<!-- Custom Fonts -->
-		<link href="{% static 'fonts/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
-		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-		<link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
-		<link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-		<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
-	</head>
-  
-	{% block title %}{% endblock %}
-	<body>
-	
-    {% block content %}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    {% load static %}
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link href="{% static 'css/agency.min.css' %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static 'fonts/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet'
+          type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    {% block style %}
     {% endblock %}
-	<!-- jQuery -->
-    <script src="{% static 'js/jquery.min.js' %}"></script>
+
+    {% block script %}
+    {% endblock %}
+
+    <!-- 'defer' does not block the browser to load the scripts. Executed in order -->
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery.min.js' %}" defer></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}" defer></script>
 
     <!-- Plugin JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js" integrity="sha384-mE6eXfrb8jxl0rzJDBRanYqgBxtJ6Unn4/1F7q4xRRyIw7Vdg9jP4ycT7x1iVsgb" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"
+            integrity="sha384-mE6eXfrb8jxl0rzJDBRanYqgBxtJ6Unn4/1F7q4xRRyIw7Vdg9jP4ycT7x1iVsgb"
+            crossorigin="anonymous" defer></script>
 
     <!-- Contact Form JavaScript -->
-    <script src="{% static 'js/jqBootstrapValidation.js' %}"></script>
-    <script src="{% static 'js/contact_me.js' %}"></script>
+    <script src="{% static 'js/jqBootstrapValidation.js' %}" defer></script>
+    <script src="{% static 'js/contact_me.js' %}" defer></script>
 
     <!-- Theme JavaScript -->
-    <script src="{% static 'js/agency.min.js' %}"></script>
+    <script src="{% static 'js/agency.min.js' %}" defer></script>
 
-	</body>
+    {% block title %}
+    {% endblock %}
+
+</head>
+
+<body>
+
+<style>
+    .fa {
+        padding: 6px;
+        font-size: 30px;
+        width: 41px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 50%;
+    }
+
+    .fa-twitter {
+        background: #55ACEE;
+        color: white;
+    }
+
+    .fa-facebook {
+        background: #3B5998;
+        color: white;
+    }
+
+    #login-dp {
+        min-width: 250px;
+        padding: 10px 10px 0;
+        overflow: hidden;
+        background-color: rgba(255, 255, 255, .2);
+    }
+
+    #login-dp .bottom {
+        background-color: rgba(255, 255, 255, .2);
+        border-top: 1px solid #ddd;
+        clear: both;
+        padding: 10px;
+    }
+
+</style>
+
+{% block content %}
+{% endblock %}
+
+</body>
 </html>

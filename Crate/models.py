@@ -1,8 +1,17 @@
+import os
+import uuid
+
 from django.core.exceptions import ValidationError
 from django.db import models
 
 
 # Create your models here.
+
+def generate_unique_file_name(instance, filename):
+    ext_name = filename.split('.')[-1]
+    file_name = '{}.{}'.format(uuid.uuid4(), ext_name)
+    return os.path.join('images', file_name)
+
 
 class Supplier(models.Model):
     """
@@ -61,21 +70,25 @@ class SellingOrder(models.Model):
     """
     supplier = models.ForeignKey(Supplier, on_delete=models.PROTECT)
     order = models.ForeignKey(Order, on_delete=models.PROTECT)
-    item_id = models.ForeignKey('Crate.Item', related_name='item_id_sold_by', on_delete=models.PROTECT)
+    item = models.ForeignKey('Crate.Item', related_name='item_id_sold_by', on_delete=models.PROTECT)
 
     def __str__(self):
-        return 'SellingOrder- Supplier:{}, Order #{}, Item: {}'.format(self.supplier, self.order, self.item_id)
+        return 'SellingOrder- Supplier:{}, Order #{}, Item: {}'.format(self.supplier, self.order, self.item)
 
 
 class Category(models.Model):
     """
     Fields-
     1. category_name- Name of the category
-    2. Foreign Keys:
+    2. category_description- Description
+    3. category_image- Image of category
+    4. Foreign Keys:
     Relationships-
     1. One to Many with Subcategory                         --In 'Subcategory' Model
     """
     category_name = models.CharField(max_length=20, primary_key=True)
+    category_description = models.CharField(max_length=100, blank=True)
+    category_image = models.ImageField(upload_to=generate_unique_file_name, blank=True)
 
     def __str__(self):
         return 'Category- {}'.format(self.category_name)
@@ -85,14 +98,18 @@ class SubCategory(models.Model):
     """
     1. subcategory_name- Name of the subcategory
     2. category_name- Name of the category that holds this subcategory
-    3. Foreign Keys:
+    3. subcategory_description- Description
+    4. subcategory_image- Subcategory Image
+    5. Foreign Keys:
     Relationships-
     1. One to Many with Category                            --In This Model
     2. One to Many with Interest Group                      --In This Model
     Note: Foreign Key is set to Protect so that the Category should never be deleted
     """
     subcategory_name = models.CharField(max_length=30, primary_key=True)
-    category_name = models.ForeignKey(Category, on_delete=models.PROTECT)
+    category = models.ForeignKey(Category, on_delete=models.PROTECT)
+    subcategory_description = models.CharField(max_length=100, blank=True)
+    subcategory_image = models.ImageField(upload_to=generate_unique_file_name, blank=True)
 
     def __str__(self):
         return 'Subcategory- {}'.format(self.subcategory_name)
@@ -104,7 +121,7 @@ class InterestGroup(models.Model):
     1. interest_id- Primary key (Identifier) of Interest Group
     2. interest_group_name- Name of the interest_group
     3. subscription_cost- Monthly price of a box
-    4. subcategory_name- Name of subcategory that holds this interest_group
+    4. interest_group_description- Description
     5. Foreign Keys:
     Relationships-
     1. Many to Many with User                           --In 'User' Model
@@ -116,8 +133,10 @@ class InterestGroup(models.Model):
     """
     interest_group_name = models.CharField(max_length=30)
     subscription_cost = models.DecimalField(max_digits=6, decimal_places=2)
-    subcategory_name = models.ForeignKey(SubCategory, on_delete=models.PROTECT)
+    interest_group_description = models.CharField(max_length=100, blank=True)
+    subcategory = models.ForeignKey(SubCategory, on_delete=models.PROTECT)
     have = models.ManyToManyField('Crate.Item', blank=True)
+    interest_group_image = models.ImageField(upload_to=generate_unique_file_name, blank=True)
 
     def __str__(self):
         return 'Interest Group- {}'.format(self.interest_group_name)
@@ -140,16 +159,16 @@ class Vote(models.Model):
     1. One to Many with Item                        --In This Model
     2. One to Many with Selling Cycle               --In This Model
     """
-    item_id = models.ForeignKey('Crate.Item', on_delete=models.PROTECT)
+    item = models.ForeignKey('Crate.Item', on_delete=models.PROTECT)
     selling_cycle = models.ForeignKey('Crate.SellingCycle', on_delete=models.PROTECT)
     vote_score = models.IntegerField(default=0, validators=[positive_vote_validator])
 
     # Gives guarantee that an item in two selling cycles can be voted on
     class Meta:
-        unique_together = ('item_id', 'selling_cycle')
+        unique_together = ('item', 'selling_cycle')
 
     def __str__(self):
-        return 'Votes- Item: {}, Selling Cycle: {}'.format(self.item_id, self.selling_cycle)
+        return 'Votes- Item: {}, Selling Cycle: {}'.format(self.item, self.selling_cycle)
 
 
 def validate_month_start(date):
@@ -193,7 +212,7 @@ class Box(models.Model):
         unique_together = ('sold_during', 'type')
 
     def __str__(self):
-        return 'Box #{}'.format(self.id)
+        return 'Box #{} {} {}'.format(self.id, str(self.type), str(self.sold_during))
 
 
 def positive_quantity_validator(quantity):
