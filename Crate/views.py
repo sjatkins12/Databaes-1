@@ -31,7 +31,7 @@ class DiscussionFormView(View):
         form = DiscussionForm()
         interest_group_name = kwargs['interest_group_name']
         interest_group = InterestGroup.objects.get(interest_group_name=interest_group_name)
-        discussions = Discussion.objects.filter(interest=interest_group)
+        discussions = Discussion.objects.filter(interest=interest_group).order_by('-pk')[:10]
         return render(request, 'Crate/box_discussion.html',
                       {'category_name': kwargs['category_name'],
                        'subcategory_name': kwargs['subcategory_name'],

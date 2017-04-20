@@ -131,6 +131,13 @@
 
     <section id="discussion" class="bg-light-gray">
         <div class="container">
+            <div class="row">
+                <div class="intro-text">
+                    <h1>Latest Comments</h1>
+                </div>
+            </div>
+        </div>
+        <div class="container">
             {% for discussion in discussions %}
                 <div class="row">
                     <p>{{ discussion.comment }} - {{ discussion.user.user }}</p>
