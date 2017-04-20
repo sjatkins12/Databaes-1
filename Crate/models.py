@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 
 
@@ -14,10 +15,16 @@ class Supplier(models.Model):
     1. Ternary Relationship with Supplier, Order, and Item
     """
     supplier_name = models.CharField(max_length=40)
-    point_of_contact = models.CharField(max_length=40)
+    point_of_contact = models.CharField(max_length=40, blank=True)
 
     def __str__(self):
-        return '{} {}'.format(self.id, self.supplier_name)
+        return 'Supplier- {}'.format(self.supplier_name)
+
+
+def order_quantity_validator(order_quantity):
+    # Cannot have an empty order
+    if order_quantity <= 0:
+        raise ValidationError("Must order at least one item")
 
 
 class Order(models.Model):
@@ -31,12 +38,12 @@ class Order(models.Model):
     Relationships-
     1. Ternary Relationship with Supplier, Order, and Item
     """
-    date_ordered = models.DateField()
-    date_fulfilled = models.DateField()
-    order_quantity = models.IntegerField(default=0)
+    date_ordered = models.DateField(auto_now=True)
+    date_fulfilled = models.DateField(blank=True)
+    order_quantity = models.IntegerField(default=1, validators=[order_quantity_validator])
 
     def __str__(self):
-        return self.id
+        return 'Order #{}'.format(self.id)
 
 
 class SellingOrder(models.Model):
@@ -57,7 +64,7 @@ class SellingOrder(models.Model):
     item_id = models.ForeignKey('Crate.Item', related_name='item_id_sold_by', on_delete=models.PROTECT)
 
     def __str__(self):
-        return '{} {} {}'.format(self.supplier, self.order, self.item_id)
+        return 'SellingOrder- Supplier:{}, Order #{}, Item: {}'.format(self.supplier, self.order, self.item_id)
 
 
 class Category(models.Model):
@@ -71,7 +78,7 @@ class Category(models.Model):
     category_name = models.CharField(max_length=20, primary_key=True)
 
     def __str__(self):
-        return self.category_name
+        return 'Category- {}'.format(self.category_name)
 
 
 class SubCategory(models.Model):
@@ -82,12 +89,13 @@ class SubCategory(models.Model):
     Relationships-
     1. One to Many with Category                            --In This Model
     2. One to Many with Interest Group                      --In This Model
+    Note: Foreign Key is set to Protect so that the Category should never be deleted
     """
     subcategory_name = models.CharField(max_length=30, primary_key=True)
-    category_name = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category_name = models.ForeignKey(Category, on_delete=models.PROTECT)
 
     def __str__(self):
-        return self.subcategory_name
+        return 'Subcategory- {}'.format(self.subcategory_name)
 
 
 class InterestGroup(models.Model):
@@ -104,17 +112,24 @@ class InterestGroup(models.Model):
     3. One to Many with Subcategory                     --In This Model
     4. Many to Many with Item                           --In this Model
     5. Many to One with Box                             --In 'Box' Model
+    Note: Foreign Key is set to Protect so that Subcategory should never be deleted
     """
     interest_group_name = models.CharField(max_length=30)
     subscription_cost = models.DecimalField(max_digits=6, decimal_places=2)
-    subcategory_name = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
-    have = models.ManyToManyField('Crate.Item')
+    subcategory_name = models.ForeignKey(SubCategory, on_delete=models.PROTECT)
+    have = models.ManyToManyField('Crate.Item', blank=True)
 
     def __str__(self):
-        return '{} {}'.format(self.id, self.interest_group_name)
+        return 'Interest Group- {}'.format(self.interest_group_name)
 
 
-class Votes(models.Model):
+def positive_vote_validator(score):
+    # Forces score to be >= 0
+    if score < 0:
+        return ValidationError("Vote Score cannot be negative")
+
+
+class Vote(models.Model):
     """
     Fields-
     1. item_id- Identifier of item which is being voted on
@@ -125,16 +140,22 @@ class Votes(models.Model):
     1. One to Many with Item                        --In This Model
     2. One to Many with Selling Cycle               --In This Model
     """
-    item_id = models.ForeignKey('Crate.Item', on_delete=models.CASCADE)
-    selling_cycle = models.ForeignKey('Crate.SellingCycle', on_delete=models.CASCADE)
-    vote_score = models.IntegerField(default=0)
+    item_id = models.ForeignKey('Crate.Item', on_delete=models.PROTECT)
+    selling_cycle = models.ForeignKey('Crate.SellingCycle', on_delete=models.PROTECT)
+    vote_score = models.IntegerField(default=0, validators=[positive_vote_validator])
 
     # Gives guarantee that an item in two selling cycles can be voted on
     class Meta:
         unique_together = ('item_id', 'selling_cycle')
 
     def __str__(self):
-        return '{} {} {}'.format(self.item_id, self.selling_cycle, self.vote_score)
+        return 'Votes- Item: {}, Selling Cycle: {}'.format(self.item_id, self.selling_cycle)
+
+
+def validate_month_start(date):
+    # Forces the start date for a selling cycle to be at the start of the month
+    if date.day != 1:
+        raise ValidationError("Selling Cycle must be at the start of the month.")
 
 
 class SellingCycle(models.Model):
@@ -146,10 +167,10 @@ class SellingCycle(models.Model):
     1. One to Many with Box                         --In 'Box' Model
     2. Many to Many with Item                       --In 'Item' Model
     """
-    cycle_date = models.DateField(primary_key=True)
+    cycle_date = models.DateField(primary_key=True, validators=[validate_month_start])
 
     def __str__(self):
-        return self.cycle_date
+        return 'Selling Cycle- {}'.format(self.cycle_date)
 
 
 class Box(models.Model):
@@ -164,11 +185,21 @@ class Box(models.Model):
     3. Many to Many with Items                      --In 'Item' Model
     4. Many to One with Interest Groups             --In This Model
     """
-    sold_during = models.ForeignKey(SellingCycle, on_delete=models.CASCADE)
-    type = models.ForeignKey(InterestGroup, on_delete=models.CASCADE)
+    sold_during = models.ForeignKey(SellingCycle, on_delete=models.PROTECT)
+    type = models.ForeignKey(InterestGroup, on_delete=models.PROTECT)
+
+    # Guarantees that a box for a interest group is unique for every selling cycle
+    class Meta:
+        unique_together = ('sold_during', 'type')
 
     def __str__(self):
-        return self.id
+        return 'Box #{}'.format(self.id)
+
+
+def positive_quantity_validator(quantity):
+    # Quantity must be positive
+    if quantity < 0:
+        raise ValidationError("Quantity must be non-negative")
 
 
 class Item(models.Model):
@@ -184,15 +215,13 @@ class Item(models.Model):
     Many to Many with Interest Group                --In 'Interest_Group' Model
     Many to Many with Box                           --In This Model
     Ternary Relationship with Supplier and Orders   --In This Model
-    Many to Many with Selling Cycle                 --In This Model
     """
     item_name = models.CharField(max_length=40)
-    item_description = models.CharField(max_length=500)
-    item_quantity = models.IntegerField(default=0)
+    item_description = models.CharField(max_length=500, blank=True)
+    item_quantity = models.IntegerField(default=0, validators=[positive_quantity_validator])
     price_per_item = models.DecimalField(max_digits=6, decimal_places=2)
-    contained_in = models.ManyToManyField(Box)
-    sold_by = models.ManyToManyField(Supplier, through=SellingOrder)
-    sold_in = models.ManyToManyField(SellingCycle)
+    contained_in = models.ManyToManyField(Box, blank=True)
+    sold_by = models.ManyToManyField(Supplier, through=SellingOrder, blank=True)
 
     def __str__(self):
-        return '{} {}'.format(self.id, self.item_name)
+        return 'Item- {}'.format(self.item_name)
