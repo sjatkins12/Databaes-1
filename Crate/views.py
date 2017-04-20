@@ -5,7 +5,7 @@ from django.shortcuts import render, get_list_or_404
 from django.views.generic import View
 
 from .forms import ReportForm, DiscussionForm
-from .models import Category, SubCategory, InterestGroup, SellingCycle, Box, Item
+from .models import Category, SubCategory, InterestGroup, SellingCycle, Box, Item, Discussion
 
 
 # Create your views here.
@@ -27,13 +27,14 @@ class DiscussionFormView(View):
     def get(self, request, *args, **kwargs):
         form = DiscussionForm()
         interest_group_name = kwargs['interest_group_name']
-        print(interest_group_name)
         interest_group = InterestGroup.objects.get(interest_group_name=interest_group_name)
+        discussions = Discussion.objects.filter(interest=interest_group)
         return render(request, 'Crate/box_discussion.html',
                       {'category_name': kwargs['category_name'],
                        'subcategory_name': kwargs['subcategory_name'],
                        'interest_group_name': interest_group_name,
                        'cost': interest_group.subscription_cost,
+                       'discussions': discussions,
                        'form': form})
 
     def post(self, request, *args, **kwargs):

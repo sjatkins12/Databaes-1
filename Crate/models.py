@@ -7,6 +7,24 @@ from django.db import models
 
 # Create your models here.
 
+class Discussion(models.Model):
+    """
+    Fields-
+    1. discussion_id- Identifier for a discussion post
+    2. comment- String of user's comment
+    3. Foreign Keys:
+    Relationships-
+    1. One to Many with UserProfile                     --In This Model
+    2. One to Many with Discussion                      --In This Model
+    """
+    comment = models.CharField(max_length=500)
+    user = models.ForeignKey('user_profile.UserProfile', on_delete=models.PROTECT)
+    interest = models.ForeignKey('Crate.InterestGroup', on_delete=models.PROTECT)
+
+    def __str__(self):
+        return 'Discussion- User: {}, Interest Group: {}'.format(str(self.user), self.interest)
+
+
 def generate_unique_file_name(instance, filename):
     ext_name = filename.split('.')[-1]
     file_name = '{}.{}'.format(uuid.uuid4(), ext_name)
