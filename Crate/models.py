@@ -17,7 +17,7 @@ class Discussion(models.Model):
     1. One to Many with UserProfile                     --In This Model
     2. One to Many with Discussion                      --In This Model
     """
-    comment = models.CharField(max_length=500)
+    comment = models.TextField(max_length=500)
     user = models.ForeignKey('user_profile.UserProfile', on_delete=models.PROTECT)
     interest = models.ForeignKey('Crate.InterestGroup', on_delete=models.PROTECT)
 

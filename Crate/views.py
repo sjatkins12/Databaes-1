@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_list_or_404
 from django.views.generic import View
 
+from user_profile.models import UserProfile
 from .forms import ReportForm, DiscussionForm
 from .models import Category, SubCategory, InterestGroup, SellingCycle, Box, Item, Discussion
 
@@ -24,6 +25,8 @@ class BoxVoteFormView(View):
 
 
 class DiscussionFormView(View):
+    form_class = DiscussionForm
+
     def get(self, request, *args, **kwargs):
         form = DiscussionForm()
         interest_group_name = kwargs['interest_group_name']
@@ -40,6 +43,12 @@ class DiscussionFormView(View):
     def post(self, request, *args, **kwargs):
         form = DiscussionForm(request.POST)
         if form.is_valid():
+            comment = form.cleaned_data.get('comment')
+            user = UserProfile.objects.get(user=request.user)
+            interest_group = InterestGroup.objects.get(interest_group_name=kwargs['interest_group_name'])
+            Discussion.objects.create(comment=comment, user=user, interest=interest_group)
+            return HttpResponseRedirect('')
+        else:
             return HttpResponseRedirect('')
 
 

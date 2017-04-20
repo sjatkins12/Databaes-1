@@ -133,8 +133,7 @@
         <div class="container">
             {% for discussion in discussions %}
                 <div class="row">
-                    <p>{{ discussion.comment }}</p>
-                    <p>{{ discussion.user.user }}</p>
+                    <p>{{ discussion.comment }} - {{ discussion.user.user }}</p>
                 </div>
             {% empty %}
                 <div class="row">
