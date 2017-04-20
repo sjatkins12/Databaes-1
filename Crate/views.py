@@ -26,9 +26,14 @@ class BoxVoteFormView(View):
 class DiscussionFormView(View):
     def get(self, request, *args, **kwargs):
         form = DiscussionForm()
-
-        return render(request, 'Crate/index.html',
-                      {'interest_group_name': kwargs['interest_group_name'],
+        interest_group_name = kwargs['interest_group_name']
+        print(interest_group_name)
+        interest_group = InterestGroup.objects.get(interest_group_name=interest_group_name)
+        return render(request, 'Crate/box_discussion.html',
+                      {'category_name': kwargs['category_name'],
+                       'subcategory_name': kwargs['subcategory_name'],
+                       'interest_group_name': interest_group_name,
+                       'cost': interest_group.subscription_cost,
                        'form': form})
 
     def post(self, request, *args, **kwargs):
@@ -76,7 +81,7 @@ def subcategory_list(request, category_name):
     else:
         subcategory_width = 100 / len(subcategory_interest_map)
     return render(request, 'Crate/subcategory_list.html',
-                  {'category': category_name,
+                  {'category_name': category_name,
                    'subcategory': subcategory_interest_map,
                    'subcategory_width': subcategory_width})
 
@@ -98,7 +103,7 @@ def interest_group_list(request, category_name, subcategory_name):
     else:
         interest_width = 100 / len(interest_group_items)
     return render(request, 'Crate/interest_group_list.html',
-                  {'category': category_name,
-                   'subcategory': subcategory_name,
+                  {'category_name': category_name,
+                   'subcategory_name': subcategory_name,
                    'interest_group': interest_group_items,
                    'interest_width': interest_width})

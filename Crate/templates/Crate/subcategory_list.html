@@ -21,57 +21,62 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-					{% if user.is_authenticated %}
-                    <li role="presentation" class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-                           aria-expanded="false">
-                            Account <span class="caret"></span></a>
-                        <ul class="dropdown-menu dropdown-menu-right">
-                            <li style=>
-                                <a style="color:black" href="/account/settings">Account Settings</a>
-                            </li>
-							<li style=>
-                                <a style="color:black" href="/payments/subscriptions">Manage Subscriptions</a>
-                            </li>
-							<li style=>
-                                <a style="color:black" href="/account/logout">Logout</a>
-                            </li>
-                        </ul>
+                    <li>
+                        <a class="page-scroll" href="{% url 'category_list' %}">Category</a>
                     </li>
-					{% else %}
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span
-                                class="caret"></span></a>
-                        <ul id="login-dp" class="dropdown-menu">
-                            <li>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <form class="form" role="form" method="post" action="/account/login/"
-                                              accept-charset="UTF-8" id="login-nav">
-											  {% csrf_token %}
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" name="username"
-                                                       placeholder="Username">
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="password" class="form-control" name="password"
-                                                       placeholder="Password">
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-                                            </div>
-                                        </form>
+                    {% if user.is_authenticated %}
+                        <li role="presentation" class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                               aria-haspopup="true"
+                               aria-expanded="false">
+                                Account <span class="caret"></span></a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li style=>
+                                    <a style="color:black" href="/account/settings">Account Settings</a>
+                                </li>
+                                <li style=>
+                                    <a style="color:black" href="/payments/subscriptions">Manage Subscriptions</a>
+                                </li>
+                                <li style=>
+                                    <a style="color:black" href="/account/logout">Logout</a>
+                                </li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span
+                                    class="caret"></span></a>
+                            <ul id="login-dp" class="dropdown-menu">
+                                <li>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <form class="form" role="form" method="post" action="/account/login/"
+                                                  accept-charset="UTF-8" id="login-nav">
+                                                {% csrf_token %}
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" name="username"
+                                                           placeholder="Username">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="password" class="form-control" name="password"
+                                                           placeholder="Password">
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-primary btn-block">Sign in
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="bottom text-center" style="color:#000000;">
+                                            New? <a href="/account/signup">
+                                            <b style="color:#FFFFFF;"> Sign up here.</b>
+                                        </a>
+                                        </div>
                                     </div>
-                                    <div class="bottom text-center" style="color:#000000;">
-                                        New? <a href="/account/signup">
-                                        <b style="color:#FFFFFF;"> Sign up here.</b>
-                                    </a>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-					{% endif %}
+                                </li>
+                            </ul>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -102,7 +107,7 @@
                                         {% endif %}
                                     </div>
                                     <a class="page-scroll btn btn-primary"
-                                       href="{% url 'interest_group_list' category_name=category subcategory_name=subcategory.subcategory_name %}">
+                                       href="{% url 'interest_group_list' category_name=category_name subcategory_name=subcategory.subcategory_name %}">
                                         Click here for {{ subcategory.subcategory_name }}'s Interest Groups</a>
                                 </div>
                             {% endfor %}
