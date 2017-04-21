@@ -14,8 +14,19 @@ from .models import Category, SubCategory, InterestGroup, SellingCycle, Box, Ite
 class BoxVoteFormView(View):
     def get(self, request, *args, **kwargs):
         form = ReportForm()
+        curr_selling_cycle = SellingCycle.objects.filter(cycle_date__lte=date.today()).order_by('-cycle_date').first()
+        box_vote = Box.objects.filter(sold_during=curr_selling_cycle, id=kwargs['box_id'])
+        items = []
+        for item in Item.objects.filter(contained_in=box_vote):
+            items.append(item)
+        if len(items) == 0:
+            box_width = 0
+        else:
+            box_width = 100 / len(items)
         return render(request, 'Crate/box_vote.html',
                       {'box_id': kwargs['box_id'],
+                       'items': items,
+                       'box_width': box_width,
                        'form': form})
 
     def post(self, request, *args, **kwargs):
@@ -98,22 +109,12 @@ def subcategory_list(request, category_name):
 
 def interest_group_list(request, category_name, subcategory_name):
     interest_groups = get_list_or_404(InterestGroup, subcategory__subcategory_name=subcategory_name)
-    curr_selling_cycle = SellingCycle.objects.filter(cycle_date__lte=date.today()).order_by('-cycle_date').first()
-    curr_boxes_sold = Box.objects.filter(sold_during=curr_selling_cycle)
-    interest_group_items = {}
-    for interest_group in interest_groups:
-        interest_group_box = curr_boxes_sold.filter(type=interest_group)
-        for item in Item.objects.filter(contained_in=interest_group_box):
-            if interest_group_items.get(interest_group) is None:
-                interest_group_items[interest_group] = [item]
-            else:
-                interest_group_items[interest_group].append(item)
-    if len(interest_group_items) == 0:
+    if len(interest_groups) == 0:
         interest_width = 0
     else:
-        interest_width = 100 / len(interest_group_items)
+        interest_width = 100 / len(interest_groups)
     return render(request, 'Crate/interest_group_list.html',
                   {'category_name': category_name,
                    'subcategory_name': subcategory_name,
-                   'interest_group': interest_group_items,
+                   'interest_groups': interest_groups,
                    'interest_width': interest_width})
