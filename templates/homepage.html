@@ -261,12 +261,12 @@
                 {% for interest_group in interest_groups %}
                     <div class="col-md-4 col-sm-6 portfolio-item">
                         <div class="portfolio-caption">
-                            <img src="{% static 'images/poorcrate.png' %}" class="img-responsive"
+                            <img src="{{ interest_group.interest_group_image.url }}" class="img-responsive"
                                  style="display: block; margin: auto">
                             <h4 style="text-align: center">{{ interest_group.interest_group_name }}</h4>
                             {% if item.item_description %}
                                 <p class="text-muted"
-                                   style="text-align: center">{{ interest_group.interst_group_description }}</p>
+                                   style="text-align: center">{{ interest_group.interest_group_description }}</p>
                             {% else %}
                                 <p class="text-muted" style="text-align: center">No description</p>
                             {% endif %}

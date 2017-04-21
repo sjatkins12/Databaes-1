@@ -95,5 +95,4 @@ ENV/
 deployment/static/
 
 # Migrations (Besides __init__.py)
-*/migrations/*_initial.py
-*/migrations/\d
+*/migrations/
