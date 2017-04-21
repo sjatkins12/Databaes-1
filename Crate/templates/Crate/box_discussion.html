@@ -147,17 +147,25 @@
                     <p>There are currently no discussions.</p>
                 </div>
             {% endfor %}
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4">
-                    <form role="form" method="post" class="form-horizontal">
-                        {% csrf_token %}
-                        {{ form }}
-                        <button type="submit" class="btn btn-primary" style="width: 100%">
-                            Submit
-                        </button>
-                    </form>
+            {% if user.is_authenticated %}
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        <form role="form" method="post" class="form-horizontal">
+                            {% csrf_token %}
+                            {{ form }}
+                            <button type="submit" class="btn btn-primary" style="width: 100%">
+                                Submit
+                            </button>
+                        </form>
+                    </div>
                 </div>
-            </div>
+            {% else %}
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        <p style="text-align: center">Please log in to comment.</p>
+                    </div>
+                </div>
+            {% endif %}
         </div>
     </section>
 

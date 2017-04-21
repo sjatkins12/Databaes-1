@@ -64,7 +64,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #'pinax.stripe.middleware.ActiveSubscriptionMiddleware',
+    # 'pinax.stripe.middleware.ActiveSubscriptionMiddleware',
     "account.middleware.LocaleMiddleware",
     "account.middleware.TimezoneMiddleware",
 ]
@@ -146,7 +146,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Account Settings
 SITE_ID = 1
 ACCOUNT_EMAIL_UNIQUE = True
@@ -157,8 +156,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Pinax Stripe Settings and Variables
 PINAX_STRIPE_PUBLIC_KEY = 'pk_test_XCcdTdwGIrUPzSeAJ8ImmFcR'
 PINAX_STRIPE_SECRET_KEY = 'sk_test_GmaJVY0Z32BsxeTeqHh41ij7'
-#decide later
+# decide later
 # PINAX_STRIPE_SUBSCRIPTION_REQUIRED_EXCEPTION_URLS = []
 # PINAX_STRIPE_SUBSCRIPTION_REQUIRED_REDIRECT = Defaults to none
 # PINAX_STRIPE_INVOICE_FROM_EMAIL
-
