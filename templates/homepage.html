@@ -268,7 +268,7 @@
                                 <img src="{{ interest_group.interest_group_image.url }}" class="img-responsive"
                                      style="display: block; margin: auto">
                                 <h4 style="text-align: center">{{ interest_group.interest_group_name }}</h4>
-                                {% if item.item_description %}
+                                {% if interest_group.interest_group_description %}
                                     <p class="text-muted"
                                        style="text-align: center">{{ interest_group.interest_group_description }}</p>
                                 {% else %}
