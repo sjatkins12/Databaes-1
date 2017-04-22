@@ -6,9 +6,7 @@
     <title>Vote on Crate #{{ box_id }}</title>
 {% endblock %}
 
-
 {% block content %}
-
 	<!-- Navigation -->
     <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
         <div class="container">
@@ -20,8 +18,9 @@
                 </button>
                 <a class="navbar-brand page-scroll" href="/">CrateUrself</a>
             </div>
+
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="navbar navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a class="page-scroll" href="{% url 'category_list' %}">Category</a>
