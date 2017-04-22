@@ -1,16 +1,16 @@
-from django.shortcuts import render
-from pinax.stripe.actions import customers
+from account.conf import settings
 from account.views import SignupView
 from django.contrib.auth import get_user_model
+from pinax.stripe.actions import customers
+
 from user_profile.forms import SignupForm
 from user_profile.models import UserProfile
-from account.conf import settings
+
 
 # Create your views here.
 class SignupView(SignupView):
-
     form_class = SignupForm
-    
+
     def form_valid(self, form):
         self.created_user = self.create_user(form, commit=False)
         # prevent User post_save signal from creating an Account instance
@@ -51,7 +51,7 @@ class SignupView(SignupView):
             self.form = form
             self.login_user()
         return redirect(self.get_success_url())
-        
+
     def create_user(self, form, commit=True, model=None, **kwargs):
         User = model
         if User is None:
@@ -75,11 +75,11 @@ class SignupView(SignupView):
             user.save()
 
         return user
-        
+
     def create_profile(self, form):
         address = form.cleaned_data.get("address")
-        return UserProfile.objects.create(user=self.created_user, 
-            address=address)
-        
+        return UserProfile.objects.create(user=self.created_user,
+                                          address=address)
+
     def create_customer(self):
         customers.create(user=self.created_user)

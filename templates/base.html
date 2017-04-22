@@ -27,12 +27,10 @@
     {% block style %}
     {% endblock %}
 
-    {% block script %}
-    {% endblock %}
 
     <!-- 'defer' does not block the browser to load the scripts. Executed in order -->
     <!-- jQuery -->
-    <script src="{% static 'js/jquery.min.js' %}" defer></script>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="{% static 'js/bootstrap.min.js' %}" defer></script>
@@ -49,6 +47,9 @@
     <!-- Theme JavaScript -->
     <script src="{% static 'js/agency.min.js' %}" defer></script>
 
+	{% block script %}
+    {% endblock %}
+	
     {% block title %}
     {% endblock %}
 

@@ -32,5 +32,11 @@ def homepage(request):
             chosen_interest_groups.append(chosen_interest_group)
             list_interest_groups.remove(chosen_interest_group)
 
+    interest_group_map = {}
+    for interest_group in chosen_interest_groups:
+        data = {'subcategory': interest_group.subcategory}
+        data['category'] = data['subcategory'].category
+        interest_group_map[interest_group] = data
+
     return render(request, 'homepage.html', {'cycle_date': end_of_month,
-                                             'interest_groups': chosen_interest_groups})
+                                             'interest_groups': interest_group_map})

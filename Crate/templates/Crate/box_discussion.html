@@ -28,7 +28,9 @@
                         <a class="page-scroll" href="{% url 'subcategory_list' category_name=category_name %}">Subcategory</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="{% url 'interest_group_list' category_name=category_name subcategory_name=subcategory_name %}">Interest Group</a>
+                        <a class="page-scroll"
+                           href="{% url 'interest_group_list' category_name=category_name subcategory_name=subcategory_name %}">Interest
+                            Group</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#discussion">Discussion</a>
@@ -116,8 +118,8 @@
                     <div class="container">
                         <div class="row">
                             <div class="crate-caption">
-                                <a class="page-scroll btn btn-primary" href="{% url 'box_item_vote' 56 %}">
-                                    Vote on Box 56's items
+                                <a class="page-scroll btn btn-primary" href="{% url 'box_item_vote' 1 %}">
+                                    Vote on Box 1's items
                                 </a>
                             </div>
                         </div>
@@ -130,19 +132,40 @@
     <section id="discussion" class="bg-light-gray">
         <div class="container">
             <div class="row">
-                <p>There are currently no discussions.</p>
-            </div>
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4">
-                    <form role="form" method="post" class="form-horizontal">
-                        {% csrf_token %}
-                        {{ form }}
-                        <button type="submit" class="btn btn-primary" style="width: 100%">
-                            Submit
-                        </button>
-                    </form>
+                <div class="intro-text">
+                    <h1>Latest Comments</h1>
                 </div>
             </div>
+        </div>
+        <div class="container">
+            {% for discussion in discussions %}
+                <div class="row">
+                    <p>{{ discussion.comment }} - {{ discussion.user.user }}</p>
+                </div>
+            {% empty %}
+                <div class="row">
+                    <p>There are currently no discussions.</p>
+                </div>
+            {% endfor %}
+            {% if user.is_authenticated %}
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        <form role="form" method="post" class="form-horizontal">
+                            {% csrf_token %}
+                            {{ form }}
+                            <button type="submit" class="btn btn-primary" style="width: 100%">
+                                Submit
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            {% else %}
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        <p style="text-align: center">Please log in to comment.</p>
+                    </div>
+                </div>
+            {% endif %}
         </div>
     </section>
 
