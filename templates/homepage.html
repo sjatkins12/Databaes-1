@@ -263,23 +263,23 @@
                 <!-- TODO: Make the p tag display a min height (some item names are very long) -->
                 {% for interest_group, interest_data in interest_groups.items %}
                     <a href="{% url 'box_discussion' category_name=interest_data.category.category_name subcategory_name=interest_data.subcategory.subcategory_name interest_group_name=interest_group.interest_group_name %}">
-                    <div class="col-md-4 col-sm-6 portfolio-item">
-                        <div class="portfolio-caption highlight">
-                            <img src="{{ interest_group.interest_group_image.url }}" class="img-responsive"
-                                 style="display: block; margin: auto">
-                            <h4 style="text-align: center">{{ interest_group.interest_group_name }}</h4>
-                            {% if item.item_description %}
-                                <p class="text-muted"
-                                   style="text-align: center">{{ interest_group.interest_group_description }}</p>
-                            {% else %}
-                                <p class="text-muted" style="text-align: center">No description</p>
-                            {% endif %}
+                        <div class="col-md-4 col-sm-6 portfolio-item">
+                            <div class="portfolio-caption highlight">
+                                <img src="{{ interest_group.interest_group_image.url }}" class="img-responsive"
+                                     style="display: block; margin: auto">
+                                <h4 style="text-align: center">{{ interest_group.interest_group_name }}</h4>
+                                {% if item.item_description %}
+                                    <p class="text-muted"
+                                       style="text-align: center">{{ interest_group.interest_group_description }}</p>
+                                {% else %}
+                                    <p class="text-muted" style="text-align: center">No description</p>
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 {% empty %}
                     <b class="col-lg-12 text-center">No Featured Monthly Boxes!</b>
                 {% endfor %}
-                </a>
             </div>
         </div>
     </section>
