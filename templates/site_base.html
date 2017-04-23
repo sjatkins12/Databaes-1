@@ -1,5 +1,21 @@
 {% extends "base.html" %}
 
+{% block style %}
+<style>
+	.navbar-fixed-top {
+		background-color: #222;
+		border-color: #E7E7E7;
+	}
+	
+	.navbar-nav > li > a, .navbar-brand {
+		padding-top:5px !important; padding-bottom:0 !important;
+		height: 30px;
+	}
+	
+	.navbar {min-height:30px !important;}
+</style>
+{% endblock %}
+
 {% block content %}
 {% block nav %}
 <!-- Navigation -->

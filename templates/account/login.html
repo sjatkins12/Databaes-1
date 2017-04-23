@@ -4,13 +4,16 @@
 {% load i18n %}
 {% load bootstrap %}
 
-{% block head_title %}
-    {% trans "Log in" %}
+{% block title %}
+    <title>Login</title>
 {% endblock %}
 
 {% block body %}
     <section>
         <div class="row">
+		<br>
+		<br>
+		<br>
             <div class="col-md-4 col-md-offset-4">
 				<div class="well">
 					<form method="POST" action="{% url "account_login" %}" autocapitalize="off"
