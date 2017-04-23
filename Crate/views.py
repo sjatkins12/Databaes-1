@@ -5,20 +5,23 @@ from django.shortcuts import render, get_list_or_404
 from django.views.generic import View
 
 from user_profile.models import UserProfile
-from .forms import ReportForm, DiscussionForm
-from .models import Category, SubCategory, InterestGroup, SellingCycle, Box, Item, Discussion
+from .forms import DiscussionForm
+from .models import Category, SubCategory, InterestGroup, SellingCycle, Box, Item, Discussion, Vote
 
 
 # Create your views here.
 
 class BoxVoteFormView(View):
+    item_name = {}
+
     def get(self, request, *args, **kwargs):
-        form = ReportForm()
+        BoxVoteFormView.item_name = {}
         curr_selling_cycle = SellingCycle.objects.filter(cycle_date__lte=date.today()).order_by('-cycle_date').first()
         box_vote = Box.objects.filter(sold_during=curr_selling_cycle, id=kwargs['box_id'])
         items = []
         for item in Item.objects.filter(contained_in=box_vote):
             items.append(item)
+            BoxVoteFormView.item_name[item.item_name] = item
         if len(items) == 0:
             box_width = 0
         else:
@@ -26,13 +29,17 @@ class BoxVoteFormView(View):
         return render(request, 'Crate/box_vote.html',
                       {'box_id': kwargs['box_id'],
                        'items': items,
-                       'box_width': box_width,
-                       'form': form})
+                       'box_width': box_width})
 
     def post(self, request, *args, **kwargs):
-        form = ReportForm(request.POST)
-        if form.is_valid():
-            return HttpResponseRedirect('')
+        curr_selling_cycle = SellingCycle.objects.filter(cycle_date__lte=date.today()).order_by('-cycle_date').first()
+        for name, item in BoxVoteFormView.item_name.items():
+            # TODO: I am pretty sure this is not the right way to do it
+            if request.POST.get(name) == '':
+                item_vote, created = Vote.objects.get_or_create(selling_cycle=curr_selling_cycle, item=item)
+                item_vote.vote_score += 1
+                item_vote.save()
+        return HttpResponseRedirect('')
 
 
 class DiscussionFormView(View):
